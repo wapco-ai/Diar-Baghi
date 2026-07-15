@@ -1,0 +1,1244 @@
+/* ReminderPage.css - Complete Updated Version */
+
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap');
+
+* {
+  font-family: 'Vazirmatn', 'Vazir', 'Tahoma', 'Arial', sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.ReminderPage-container {
+  min-height: 100vh;
+  background: #f8f6f2;
+  padding-bottom: 30px;
+}
+
+/* ============================================ */
+/* ======== HEADER =========== */
+/* ============================================ */
+
+.ReminderPage-header {
+  background: #16A354;
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.ReminderPage-backBtn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: white;
+}
+
+.ReminderPage-backBtn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.ReminderPage-headerTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+  margin: 0;
+}
+
+.ReminderPage-headerSpacer {
+  width: 36px;
+}
+
+/* ============================================ */
+/* ======== TOOLBAR =========== */
+/* ============================================ */
+
+.ReminderPage-toolbar {
+  margin-top: 20px;
+  padding: 0 16px;
+  margin-bottom: 20px;
+}
+
+.ReminderPage-searchContainer {
+  position: relative;
+}
+
+.ReminderPage-searchIcon {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #2c5a4a;
+}
+
+.ReminderPage-searchInput {
+  width: 100%;
+  padding: 12px 42px 12px 14px;
+  border: 1.5px solid #e8dfd0;
+  border-radius: 30px;
+  font-size: 14px;
+  background: white;
+  direction: rtl;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.ReminderPage-searchInput:focus {
+  border-color: #BF9A61;
+  box-shadow: 0 0 0 3px rgba(191, 154, 97, 0.1);
+}
+
+/* ============================================ */
+/* ======== FAVOURITES LIST =========== */
+/* ============================================ */
+
+.ReminderPage-list {
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ReminderPage-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+  padding: 16px;
+}
+
+.ReminderPage-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.ReminderPage-cardHeader {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.ReminderPage-cardImageSmall {
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #ede6d8 0%, #d4c9b8 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ReminderPage-cardRealImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ReminderPage-cardImagePlaceholderSmall {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ReminderPage-cardImagePlaceholderSmall svg {
+  width: 40px;
+  height: 40px;
+}
+
+.ReminderPage-cardInfo {
+  flex: 1;
+}
+
+.ReminderPage-cardInfo h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #2c5a4a;
+  margin-bottom: 2px;
+}
+
+.ReminderPage-cardSection {
+  font-size: 12px;
+  color: #039660;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.ReminderPage-cardLocation {
+  font-size: 11px;
+  color: #7a6a4a;
+  margin-bottom: 2px;
+}
+
+.ReminderPage-cardDate {
+  font-size: 10px;
+  color: #999;
+}
+
+.ReminderPage-cardActions2 {
+  display: flex;
+  gap: 10px;
+  flex-direction: row;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #f0e6d6;
+}
+
+.ReminderPage-cardDetailBtn,
+.ReminderPage-cardReminderBtn {
+  flex: 1;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.ReminderPage-cardDetailBtn {
+  background: #f0e6d6;
+  color: #2c5a4a;
+}
+
+.ReminderPage-cardDetailBtn:hover {
+  background: #e8dfd0;
+}
+
+.ReminderPage-cardReminderBtn {
+  background: linear-gradient(135deg, #05543E 0%, #08775B 100%);
+  color: white;
+}
+
+.ReminderPage-cardReminderBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(5, 84, 62, 0.3);
+}
+
+/* ============================================ */
+/* ======== EMPTY STATE =========== */
+/* ============================================ */
+
+.ReminderPage-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.ReminderPage-empty svg {
+  margin-bottom: 20px;
+}
+
+.ReminderPage-empty p {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2c5a4a;
+  margin-bottom: 8px;
+}
+
+.ReminderPage-emptySub {
+  font-size: 14px;
+  color: #7a6a4a;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+.ReminderPage-emptyBtn {
+  padding: 12px 32px;
+  background: linear-gradient(135deg, #BF9A61 0%, #EDD79D 100%);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ReminderPage-emptyBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(191, 154, 97, 0.3);
+}
+
+/* ============================================ */
+/* ======== REMINDER VIEW =========== */
+/* ============================================ */
+
+.ReminderPage-reminderView {
+  padding: 20px 16px 40px;
+  background: white;
+  min-height: 100vh;
+}
+
+/* Reminder Header */
+.ReminderPage-reminderHeaders {
+  background: #16A354;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: -20px -16px 20px -16px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+
+.ReminderPage-reminderBackBtn {
+  position: absolute;
+  left: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: white;
+}
+
+.ReminderPage-reminderBackBtn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.ReminderPage-reminderTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+  margin: 0;
+}
+
+/* User Info */
+.ReminderPage-userInfo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  background: white;
+  border-radius: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  gap: 25px;
+}
+
+.ReminderPage-userAvatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #16A354 0%, #0d7a3f 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  border: 2px solid grey;
+}
+
+.ReminderPage-userAvatarImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ReminderPage-userAvatar svg {
+  width: 48px;
+  height: 48px;
+}
+
+.ReminderPage-userName h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #2c5a4a;
+  margin: 0;
+}
+
+/* ============================================ */
+/* ======== REMINDER TOGGLES =========== */
+/* ============================================ */
+
+.ReminderPage-reminderSection {
+  background: white;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.ReminderPage-reminderItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+}
+
+.ReminderPage-reminderItem:last-child {
+  border-bottom: none;
+}
+
+.ReminderPage-reminderLabel {
+  font-size: 14px;
+  font-weight: 500;
+  color: #2c5a4a;
+}
+
+.ReminderPage-toggleWrapper {
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.ReminderPage-toggleCustom {
+  width: 50px;
+  height: 28px;
+  background: #ccc;
+  border-radius: 34px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.ReminderPage-toggleCustom.active {
+  background: #16A354;
+}
+
+.ReminderPage-toggleCircle {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  background: white;
+  border-radius: 50%;
+  top: 3px;
+  left: 3px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.ReminderPage-toggleCustom.active .ReminderPage-toggleCircle {
+  left: 25px;
+}
+
+/* ============================================ */
+/* ======== DATE & TIME SECTION =========== */
+/* ============================================ */
+
+.ReminderPage-datetimeSection {
+  background: white;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.ReminderPage-datetimeTitle {
+  font-size: 15px;
+  font-weight: 600;
+  color: #2c5a4a;
+  margin-bottom: 16px;
+}
+
+/* Time Selection */
+.ReminderPage-timeSelection {
+  margin-bottom: 16px;
+}
+
+.ReminderPage-timeRow {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.ReminderPage-timeCol {
+  flex: 1;
+  min-width: 0;
+}
+
+.ReminderPage-timeCol label {
+  display: block;
+  font-size: 11px;
+  color: #7a6a4a;
+  margin-bottom: 4px;
+  text-align: center;
+}
+
+/* Custom Select for Time */
+.ReminderPage-customSelect {
+  position: relative;
+  width: 100%;
+}
+
+.ReminderPage-selectTrigger {
+  width: 100%;
+  padding: 8px 6px;
+  border: 1px solid #e8dfd0;
+  border-radius: 8px;
+  background: white;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  direction: rtl;
+}
+
+.ReminderPage-selectTrigger span {
+  flex: 1;
+  text-align: center;
+}
+
+.ReminderPage-dropdownMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  max-height: 150px;
+  overflow-y: auto;
+  z-index: 1000;
+  margin-top: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.ReminderPage-dropdownItem {
+  padding: 8px 12px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 13px;
+}
+
+.ReminderPage-dropdownItem:hover {
+  background: #f0f0f0;
+}
+
+/* Date Selection */
+.ReminderPage-dateSelection {
+  position: relative;
+}
+
+.ReminderPage-dateDisplay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border: 1px solid #e8dfd0;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  font-size: 14px;
+  color: #2c5a4a;
+  transition: all 0.2s ease;
+}
+
+.ReminderPage-dateDisplay:hover {
+  border-color: #16A354;
+}
+
+.ReminderPage-dateDisplay svg {
+  color: #16A354;
+}
+
+.ReminderPage-dateDisplay span {
+  font-weight: 500;
+}
+
+/* Date Picker Dropdown - Fixed position dropdown */
+.ReminderPage-datePickerDropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 8px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  padding: 16px;
+  z-index: 50;
+  min-width: 280px;
+  width: 100%;
+  border: 1px solid #e8dfd0;
+  animation: fadeInQuick 0.2s ease-out;
+}
+
+@keyframes fadeInQuick {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ReminderPage-datePickerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #f0e6d6;
+}
+
+.ReminderPage-datePickerHeader span {
+  font-size: 14px;
+  font-weight: 600;
+  color: #2c5a4a;
+}
+
+.ReminderPage-datePickerHeader button {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #999;
+  padding: 0 4px;
+}
+
+.ReminderPage-datePickerHeader button:hover {
+  color: #f44336;
+}
+
+.ReminderPage-datePickerRow {
+  display: flex;
+  gap: 12px;
+}
+
+.ReminderPage-datePickerCol {
+  flex: 1;
+  min-width: 0;
+}
+
+.ReminderPage-datePickerCol label {
+  display: block;
+  font-size: 11px;
+  color: #7a6a4a;
+  margin-bottom: 4px;
+}
+
+/* Custom Select inside date picker - smaller */
+.ReminderPage-datePickerCol .ReminderPage-customSelect .ReminderPage-selectTrigger {
+  padding: 6px 4px;
+  font-size: 12px;
+}
+
+.ReminderPage-datePickerCol .ReminderPage-customSelect .ReminderPage-dropdownMenu {
+  max-height: 120px;
+}
+
+.ReminderPage-datePickerCol .ReminderPage-customSelect .ReminderPage-dropdownItem {
+  padding: 6px 8px;
+  font-size: 12px;
+}
+
+/* ============================================ */
+/* ======== SEND METHODS =========== */
+/* ============================================ */
+
+.ReminderPage-sendSection {
+  background: white;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.ReminderPage-sendTitle {
+  font-size: 15px;
+  font-weight: 600;
+  color: #2c5a4a;
+  margin-bottom: 12px;
+}
+
+.ReminderPage-sendItems {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 80px;
+  margin-bottom: 20px;
+}
+
+
+.ReminderPage-sendItem {
+  padding: 8px 0;
+}
+
+.ReminderPage-sendLabel {
+  font-size: 14px;
+  color: #2c5a4a;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.ReminderPage-sendLabel input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #039660;
+  cursor: pointer;
+}
+
+/* ============================================ */
+/* ======== MESSAGE SECTION =========== */
+/* ============================================ */
+
+.ReminderPage-messageSection {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ReminderPage-messageLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: #2c5a4a;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.ReminderPage-required {
+  color: #f44336;
+}
+
+.ReminderPage-messageTextarea {
+  width: 100%;
+  padding: 12px;
+  border: 1.5px solid #e8dfd0;
+  border-radius: 12px;
+  font-size: 14px;
+  resize: vertical;
+  transition: all 0.2s ease;
+  direction: rtl;
+  background: #fefcf8;
+}
+
+.ReminderPage-messageTextarea:focus {
+  outline: none;
+  border-color: #BF9A61;
+  box-shadow: 0 0 0 3px rgba(191, 154, 97, 0.1);
+}
+
+.ReminderPage-messageTextarea.error {
+  border-color: #BF9A61;
+}
+
+.ReminderPage-suggestedBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: none;
+  border: 1.5px solid #BF9A61;
+  border-radius: 30px;
+  color: #BF9A61;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 12px;
+}
+
+.ReminderPage-suggestedBtn:hover {
+  background: #BF9A61;
+  color: white;
+}
+
+/* ============================================ */
+/* ======== PHONE SECTION =========== */
+/* ============================================ */
+
+.ReminderPage-phoneSection {
+  margin-bottom: 20px;
+}
+
+.ReminderPage-phoneLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: #2c5a4a;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.ReminderPage-phoneInputWrapper {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.ReminderPage-phoneInput {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1.5px solid #e8dfd0;
+  border-radius: 12px;
+  font-size: 14px;
+  direction: rtl;
+  text-align: right;
+  background: #fefcf8;
+  transition: all 0.2s ease;
+}
+
+.ReminderPage-phoneInput:focus {
+  outline: none;
+  border-color: #BF9A61;
+  box-shadow: 0 0 0 3px rgba(191, 154, 97, 0.1);
+}
+
+.ReminderPage-phoneRemoveBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #c41c107b;
+  border-radius: 20px;
+}
+
+.ReminderPage-phoneRemoveBtn svg {
+  color: #c41c107b;
+}
+
+
+.ReminderPage-phoneRemoveBtn:hover {
+  transform: scale(1.1);
+}
+
+.ReminderPage-phoneAddBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: none;
+  border: 1.5px solid #039660;
+  border-radius: 30px;
+  color: #039660;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 18px;
+}
+
+.ReminderPage-phoneAddBtn:hover {
+  color: #039660;
+}
+
+/* ============================================ */
+/* ======== SAVE BUTTON =========== */
+/* ============================================ */
+
+.ReminderPage-saveBtn {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #05543E 0%, #08775B 100%);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 4px 12px rgba(5, 84, 62, 0.3);
+}
+
+.ReminderPage-saveBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(5, 84, 62, 0.4);
+}
+
+.ReminderPage-savedMessage {
+  margin-top: 12px;
+  padding: 12px;
+  background: #e8f5e9;
+  border-radius: 12px;
+  color: #2e7d32;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  justify-content: center;
+}
+
+/* ============================================ */
+/* ======== SUGGESTED TEXTS OVERLAY =========== */
+/* ============================================ */
+
+.ReminderPage-suggestedOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  z-index: 200;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.ReminderPage-suggestedContent {
+  width: 90%;
+  max-width: 500px;
+  max-height: 80vh;
+  background: white;
+  border-radius: 24px;
+  padding: 20px;
+  overflow-y: auto;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.ReminderPage-suggestedBackBtn {
+  justify-self: flex-end;
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #2c5a4a;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 8px 0;
+  margin-bottom: 16px;
+}
+
+.ReminderPage-suggestedTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: #2c5a4a;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.ReminderPage-suggestedList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ReminderPage-suggestedItem {
+  background: #f9f7f2;
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.ReminderPage-suggestedItem:hover {
+  border-color: #BF9A61;
+  background: #f5f0e8;
+}
+
+.ReminderPage-suggestedItem p {
+  font-size: 13px;
+  color: #2c5a4a;
+  margin: 0;
+  flex: 0.9;
+}
+
+.ReminderPage-suggestedSelectBtn {
+  padding: 4px 14px;
+  background: linear-gradient(135deg, #05543E 0%, #08775B 100%);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.ReminderPage-suggestedSelectBtn:hover {
+  transform: scale(1.05);
+}
+
+/* ============================================ */
+/* ======== DETAIL MODAL =========== */
+/* ============================================ */
+
+.ReminderPage-detailModalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  z-index: 300;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.ReminderPage-detailModalContent {
+  width: 90%;
+  max-width: 400px;
+  background: white;
+  border-radius: 24px;
+  overflow: hidden;
+  animation: slideUp 0.3s ease-out;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.ReminderPage-detailModalHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #0A865F 0%, #08775B 100%);
+  color: white;
+}
+
+.ReminderPage-detailModalHeader h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.ReminderPage-detailModalBody {
+  padding: 20px;
+}
+
+.ReminderPage-detailImageContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.ReminderPage-detailGraveImage {
+  width: 200px;
+  height: 200px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #ede6d8 0%, #d4c9b8 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.ReminderPage-detailRealImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ReminderPage-detailInfoSection {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ReminderPage-detailInfoRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.ReminderPage-detailInfoRow:last-child {
+  border-bottom: none;
+}
+
+.ReminderPage-detailInfoLabel {
+  font-size: 13px;
+  color: #7a6a4a;
+}
+
+.ReminderPage-detailInfoValue {
+  font-size: 13px;
+  font-weight: 500;
+  color: #2c5a4a;
+}
+
+/* ============================================ */
+/* ======== RESPONSIVE =========== */
+/* ============================================ */
+
+@media (max-width: 480px) {
+  .ReminderPage-toolbar {
+    padding: 0 12px;
+  }
+
+  .ReminderPage-list {
+    padding: 0 12px;
+  }
+
+  .ReminderPage-card {
+    padding: 12px;
+  }
+
+  .ReminderPage-cardHeader {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .ReminderPage-cardImageSmall {
+    width: 70px;
+    height: 70px;
+  }
+
+  .ReminderPage-cardInfo h3 {
+    font-size: 15px;
+  }
+
+  .ReminderPage-reminderView {
+    padding: 16px 12px 30px;
+  }
+
+  .ReminderPage-reminderTitle {
+    font-size: 16px;
+  }
+
+
+  .ReminderPage-toggleCustom {
+    width: 44px;
+    height: 26px;
+  }
+
+  .ReminderPage-toggleCircle {
+    width: 20px;
+    height: 20px;
+    top: 3px;
+    left: 3px;
+  }
+
+  .ReminderPage-toggleCustom.active .ReminderPage-toggleCircle {
+    left: 21px;
+  }
+
+  .ReminderPage-timeRow {
+    flex-wrap: nowrap;
+    gap: 6px;
+  }
+
+  .ReminderPage-timeCol {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .ReminderPage-selectTrigger {
+    font-size: 11px;
+    padding: 6px 4px;
+  }
+
+  .ReminderPage-dropdownItem {
+    font-size: 11px;
+    padding: 6px 8px;
+  }
+
+  .ReminderPage-datePickerDropdown {
+    min-width: 200px;
+    padding: 12px;
+  }
+
+  .ReminderPage-datePickerRow {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .ReminderPage-suggestedContent {
+    width: 95%;
+    padding: 16px;
+  }
+
+  .ReminderPage-detailModalContent {
+    width: 95%;
+  }
+
+  .ReminderPage-detailGraveImage {
+    width: 150px;
+    height: 150px;
+  }
+
+  .ReminderPage-phoneInputWrapper {
+    flex-wrap: wrap;
+  }
+
+  .ReminderPage-phoneInput {
+    flex: 1;
+    min-width: 150px;
+  }
+
+  .ReminderPage-datePickerCol .ReminderPage-customSelect .ReminderPage-selectTrigger {
+    font-size: 11px;
+    padding: 5px 3px;
+  }
+
+  .ReminderPage-datePickerCol .ReminderPage-customSelect .ReminderPage-dropdownItem {
+    font-size: 11px;
+    padding: 5px 6px;
+  }
+}
+
+@media (min-width: 768px) {
+  .ReminderPage-container {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+}

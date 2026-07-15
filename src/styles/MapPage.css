@@ -1,0 +1,1720 @@
+/* MapPage.css - Complete Updated Version with Favourite Feature */
+
+* {
+  font-family: 'Vazirmatn', 'Vazir', 'Tahoma', 'Arial', sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.Mappage-container {
+  min-height: 100vh;
+  background: #F5EDD8;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.Mappage-container.fade-in {
+  opacity: 1;
+}
+
+/* Favourite Toast Message */
+.Mappage-favouriteToast {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #0A865F 0%, #08775B 100%);
+  color: white;
+  padding: 14px 28px;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(10, 134, 95, 0.4);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  animation: toastSlideDown 0.4s ease-out, toastFadeOut 0.4s ease-in 2.6s forwards;
+  direction: rtl;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 40vh;
+}
+
+.Mappage-favouriteToastIcon {
+  font-size: 22px;
+  animation: starPulse 0.6s ease-in-out;
+}
+
+@keyframes toastSlideDown {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px) scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}
+
+@keyframes toastFadeOut {
+  from {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-10px) scale(0.95);
+  }
+}
+
+@keyframes starPulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.4) rotate(20deg);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Header */
+.Mappage-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #0A865F;
+  padding: 14px 16px;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.Mappage-headerTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  margin: 0;
+  align-self: center;
+  justify-self: center;
+}
+
+.Mappage-headerIcons {
+  display: flex;
+  gap: 12px;
+  background: #e2e0e36a;
+  border-radius: 25px;
+  padding: 3px;
+}
+
+.Mappage-iconButton {
+  background: none;
+  border: none;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Mappage-iconButton.active {
+  background: #36805A;
+  color: white;
+  border-radius: 15px;
+}
+
+.Mappage-iconButton:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.Mappage-iconButton.active:hover {
+  background: #36805A;
+  color: white;
+  border-radius: 15px;
+}
+
+/* Map Wrapper */
+.Mappage-mapWrapper {
+  position: relative;
+  height: calc(100vh - 60px);
+  margin-top: 60px;
+  overflow: hidden;
+}
+
+.Mappage-mapContainer {
+  width: 100%;
+  height: 100%;
+}
+
+.Mappage-mapContainer .maplibregl-control-container {
+  display: none;
+}
+
+/* Track Button */
+.Mappage-TrackButton {
+  position: absolute;
+  bottom: 270px;
+  left: 20px;
+  background: white;
+  border: none;
+  border-radius: 25%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+  z-index: 100;
+  color: #0A865F;
+}
+
+.Mappage-TrackButton:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.Mappage-TrackButton:active {
+  transform: scale(0.95);
+}
+
+/* User location GPS button */
+.Mappage-gpsButton {
+  position: absolute;
+  bottom: 220px;
+  left: 20px;
+  background: white;
+  border: none;
+  border-radius: 25%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+  z-index: 100;
+  color: #0A865F;
+}
+
+.Mappage-gpsButton:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.Mappage-gpsButton:active {
+  transform: scale(0.95);
+}
+
+/* Custom Marker Styles - ORIGINAL (KEPT INTACT) */
+.Mappage-customMarker {
+  cursor: pointer;
+  transition: transform 0.15s ease;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.Mappage-customMarker:hover {
+  transform: scale(1.08);
+}
+
+.Mappage-customMarker.selected {
+  filter: drop-shadow(0 0 10px rgba(10, 134, 95, 0.6));
+  animation: none;
+}
+
+/* Remove pulse animation to prevent shaking */
+@keyframes markerPulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Popup Bubble Styles - FIXED (HIGHER Z-INDEX) */
+.Mappage-customPopup {
+  z-index: 2000 !important;
+}
+
+.Mappage-customPopup .maplibregl-popup {
+  z-index: 2000 !important;
+}
+
+.Mappage-customPopup .maplibregl-popup-content {
+  padding: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.Mappage-customPopup .maplibregl-popup-tip {
+  border-top-color: white !important;
+}
+
+.Mappage-popup {
+  background: white;
+  border-radius: 16px;
+  padding: 0;
+  min-width: 220px;
+  max-width: 280px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  direction: rtl;
+  animation: popupFadeIn 0.2s ease-out;
+}
+
+@keyframes popupFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.Mappage-popupHeader {
+  background: #0A865F;
+  padding: 10px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Mappage-popupHeader h3 {
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  flex: 1;
+}
+
+/* Favourite Button in Popup */
+.Mappage-popupFavouriteBtn {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  padding: 0;
+  backdrop-filter: blur(4px);
+}
+
+.Mappage-popupFavouriteBtn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.Mappage-popupFavouriteBtn:active {
+  transform: scale(0.9);
+}
+
+.Mappage-popupFavouriteBtn.favourited {
+  background: rgba(255, 215, 0, 0.25);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+}
+
+.Mappage-popupFavouriteBtn.favourited:hover {
+  background: rgba(255, 215, 0, 0.35);
+}
+
+.Mappage-popupFavouriteBtn svg {
+  transition: all 0.3s ease;
+}
+
+.Mappage-popupFavouriteBtn.favourited svg {
+  fill: #FFD700;
+  stroke: #FFD700;
+  animation: starPop 0.4s ease-out;
+}
+
+@keyframes starPop {
+  0% {
+    transform: scale(0.5) rotate(-30deg);
+  }
+
+  50% {
+    transform: scale(1.3) rotate(15deg);
+  }
+
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.Mappage-popupContent {
+  padding: 12px 14px;
+}
+
+.Mappage-popupSection {
+  font-size: 14px;
+  color: #0A865F;
+  font-weight: 600;
+  margin: 0 0 4px 0;
+}
+
+.Mappage-popupLocation {
+  font-size: 12px;
+  color: #666;
+  margin: 0 0 12px 0;
+}
+
+.Mappage-popupButtons {
+  display: flex;
+  gap: 8px;
+}
+
+.Mappage-popupDetailBtn,
+.Mappage-popupRouteBtn {
+  flex: 1;
+  padding: 7px 10px;
+  border: none;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.Mappage-popupDetailBtn {
+  background: #BF9943;
+  color: white;
+}
+
+.Mappage-popupDetailBtn:hover {
+  background: #a88335;
+}
+
+.Mappage-popupRouteBtn {
+  background: #0A865F;
+  color: white;
+}
+
+.Mappage-popupRouteBtn:hover {
+  background: #0a754f;
+}
+
+/* Bottom Footer */
+.Mappage-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  border-radius: 20px 20px 0 0;
+  padding: 16px;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+  z-index: 2001;
+}
+
+.Mappage-footerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 0 4px;
+}
+
+.Mappage-footerHeader h4 {
+  font-size: 14px;
+  color: black;
+  margin: 0;
+  font-weight: 600;
+}
+
+.Mappage-showMoreButton {
+  background: none;
+  border: none;
+  color: #0A865F;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.Mappage-showMoreButton:hover {
+  opacity: 0.8;
+}
+
+/* Scrollable Graves List */
+.Mappage-gravesList {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 4px 6px 10px;
+  padding-top: 10px;
+  -webkit-overflow-scrolling: touch;
+  align-items: center;
+}
+
+.Mappage-gravesList::-webkit-scrollbar {
+  height: 4px;
+}
+
+.Mappage-gravesList::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 10px;
+}
+
+.Mappage-gravesList::-webkit-scrollbar-thumb {
+  background: #0A865F;
+  border-radius: 10px;
+}
+
+/* Grave Item */
+.Mappage-graveItem {
+  position: relative;
+  flex-shrink: 0;
+  width: 100px;
+  background: #F5EDD8;
+  border-radius: 16px;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 2px solid transparent;
+}
+
+.Mappage-graveItem.active {
+  border-color: #0A865F;
+  background: rgba(10, 134, 95, 0.1);
+  transform: translateY(-2px);
+}
+
+.Mappage-graveItem:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.Mappage-graveImage {
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: center;
+}
+
+.Mappage-graveImagePlaceholder {
+  width: 70px;
+  height: 70px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+}
+
+.Mappage-graveInfo h5 {
+  font-size: 11px;
+  color: #0A865F;
+  margin-bottom: 2px;
+  font-weight: 600;
+}
+
+/* Selected Badge */
+.Mappage-selectedBadge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: #0A865F;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes bounce {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(5px);
+  }
+}
+
+/* Modal */
+.Mappage-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  z-index: 3000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.25s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.Mappage-modalContent {
+  width: 100vw;
+  height: 100vh;
+  background: white;
+  padding: 20px;
+  overflow-y: auto;
+  animation: slideUp 0.25s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Image styles for grave items in footer */
+.Mappage-graveRealImage {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid #e0d5c0;
+}
+
+/* Image styles for modal grave items */
+.Mappage-modalRealImage {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+/* Ensure images in detail modal display properly */
+.Mappage-detailRealImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 24px;
+}
+
+/* Placeholder for graves without images */
+.Mappage-graveImagePlaceholder {
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, #f0ede8 0%, #e0d5c0 100%);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Mappage-modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+.Mappage-modalHeader h3 {
+  font-size: 18px;
+  color: #0A865F;
+  margin: 0;
+}
+
+
+
+.Mappage-modalSearch {
+  margin-bottom: 16px;
+}
+
+.Mappage-modalSearch input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background: white;
+  direction: rtl;
+  font-size: 14px;
+  outline: none;
+}
+
+.Mappage-modalSearch input:focus {
+  border-color: #0A865F;
+}
+
+.Mappage-modalGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  max-height: calc(100vh - 100px) !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
+.Mappage-modalGraveItem {
+  background: #F5EDD8;
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 2px solid transparent;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.Mappage-modalGraveItem.active {
+  border-color: #0A865F;
+  background: rgba(10, 134, 95, 0.05);
+}
+
+.Mappage-modalGraveItem:hover {
+  transform: translateX(-3px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.Mappage-modalGraveInfo h4 {
+  font-size: 16px;
+  color: #0A865F;
+  margin-bottom: 4px;
+}
+
+.Mappage-modalGraveInfo p {
+  font-size: 12px;
+  color: #666;
+  margin: 2px 0;
+}
+
+.Mappage-modalGraveLocation {
+  font-size: 10px;
+  color: #999;
+}
+
+.Mappage-backButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  transform: rotate(180deg);
+}
+
+.Mappage-modalRouteButton {
+  background: linear-gradient(320deg, #0cbd8b 0%, #08775B 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  margin-right: 8px;
+  font-weight: 600;
+}
+
+.Mappage-modalRouteButton:hover {
+  background-color: #086e4e;
+  transform: scale(1.02);
+}
+
+.Mappage-modalRouteButton svg {
+  stroke: white;
+}
+
+.Mappage-modalGraveImage {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ==================== DETAIL MODAL STYLES ==================== */
+.Mappage-detailModalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3000;
+  animation: fadeIn 0.2s ease-out;
+  padding: 20px;
+}
+
+.Mappage-detailModalContent {
+  background: white;
+  border-radius: 28px;
+  width: 100%;
+  max-width: 400px;
+  max-height: 90vh;
+  overflow-y: auto;
+  direction: rtl;
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.3s ease-out;
+}
+
+.Mappage-detailModalHeader {
+  background: transparent;
+  padding: 18px 20px;
+  border-radius: 28px 28px 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Mappage-detailModalHeader h3 {
+  color: #0A865F;
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.Mappage-detailModalClose {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: white;
+}
+
+.Mappage-detailModalClose:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+.Mappage-detailModalBody {
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Image Container - Ready for real images */
+.Mappage-detailImageContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.Mappage-detailGraveImage {
+  width: 270px;
+  height: 270px;
+  background: linear-gradient(135deg, #F5EDD8 0%, #e8ddc0 100%);
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.Mappage-detailGraveImage svg {
+  width: 80px;
+  height: 80px;
+}
+
+/* Real image styling - ready for when images are uploaded */
+.Mappage-detailRealImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 24px;
+}
+
+/* Info Sections */
+.Mappage-detailInfoSection {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  background: #F5EDD8;
+  border-radius: 20px;
+  padding: 16px;
+  margin-bottom: 14px;
+}
+
+.Mappage-detailInfoRow {
+  display: flex;
+  gap: 12px;
+  padding: 10px 0;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.Mappage-detailInfoRow:last-child {
+  border-bottom: none;
+}
+
+.Mappage-detailInfoLabel {
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
+}
+
+.Mappage-detailInfoValue {
+  font-size: 15px;
+  color: #0A865F;
+  font-weight: 600;
+  text-align: left;
+}
+
+.Mappage-detailActions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.Mappage-detailRouteBtn {
+  flex: 1;
+  background: linear-gradient(135deg, #0A865F 0%, #08775B 100%);
+  color: white;
+  border: none;
+  border-radius: 14px;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.Mappage-detailRouteBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(10, 134, 95, 0.3);
+}
+
+
+.Mappage-detailCloseBtn:hover {
+  background: #e0e0e0;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .Mappage-graveItem {
+    width: 85px;
+    padding: 8px;
+  }
+
+  .Mappage-graveImage svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .Mappage-graveInfo h5 {
+    font-size: 10px;
+  }
+
+  .Mappage-popup {
+    min-width: 190px;
+    max-width: 220px;
+  }
+
+  .Mappage-popupDetailBtn,
+  .Mappage-popupRouteBtn {
+    padding: 6px 8px;
+    font-size: 10px;
+  }
+
+  .Mappage-modalGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .Mappage-detailModalContent {
+    max-width: 95%;
+    border-radius: 24px;
+  }
+
+  .Mappage-detailGraveImage svg {
+    width: 65px;
+    height: 65px;
+  }
+
+  .Mappage-detailInfoLabel,
+  .Mappage-detailInfoValue {
+    font-size: 13px;
+  }
+
+}
+
+@media (min-width: 769px) {
+  .Mappage-footer {
+    max-width: 500px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 20px 20px 0 0;
+  }
+}
+
+@media (max-width: 400px) {
+  .Mappage-detailGraveImage {
+    width: 190px;
+    height: 190px;
+  }
+}
+
+.Mappage-detailModalContent {
+  position: relative;
+  overflow: visible !important;
+}
+
+.Mappage-detailModalContent::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 20px;
+  right: 20px;
+  height: 16px;
+  background: radial-gradient(ellipse at center, #BF9943 0%, #BF9943 30%, transparent 70%);
+  border-radius: 50%;
+  opacity: 0.6;
+  z-index: 5;
+}
+
+.Mappage-detailModalContent::after {
+  content: "✻";
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 24px;
+  color: #BF9943;
+  background: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Add subtle persian pattern background to the header */
+.Mappage-detailModalHeader {
+  position: relative;
+  background: linear-gradient(135deg, #0A865F 0%, #0c6b4d 100%);
+  margin: -1px -1px 0 -1px;
+  border-radius: 28px 28px 0 0;
+  padding: 20px 20px;
+}
+
+.Mappage-detailModalHeader h3 {
+  color: white;
+  position: relative;
+  z-index: 2;
+}
+
+/* Traditional Persian pattern overlay on header */
+.Mappage-detailModalHeader::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(circle at 25% 40%, rgba(255, 255, 255, 0.08) 2px, transparent 2px),
+    radial-gradient(circle at 75% 60%, rgba(255, 255, 255, 0.06) 1px, transparent 2px);
+  background-size: 40px 40px, 30px 30px;
+  background-position: 0 0, 20px 20px;
+  border-radius: 28px 28px 0 0;
+  pointer-events: none;
+}
+
+/* Persian decorative dots along the header bottom */
+.Mappage-detailModalHeader::after {
+  content: "••••••••••••••••••••••••••••••••••••••••••••";
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: rgba(255, 255, 255, 0.5);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
+  pointer-events: none;
+}
+
+.Mappage-detailModalHeader h3::before {
+  content: "𑁍";
+  margin-left: 10px;
+  font-size: 18px;
+  opacity: 0.8;
+  display: inline-block;
+  animation: gentlePulse 2s ease-in-out infinite;
+}
+
+.Mappage-detailModalHeader h3::after {
+  content: "𑁍";
+  margin-right: 10px;
+  font-size: 18px;
+  opacity: 0.8;
+  display: inline-block;
+  animation: gentlePulse 2s ease-in-out infinite reverse;
+}
+
+.Mappage-imageOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 5000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.25s ease-out;
+  cursor: pointer;
+}
+
+.Mappage-imageOverlayContent {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+  max-width: 90vw;
+  max-height: 90vh;
+  padding: 20px;
+  border-radius: 16px;
+  background: transparent;
+  overflow: hidden;
+  touch-action: none;
+}
+
+.Mappage-imageOverlayImg {
+  max-width: 80vw;
+  max-height: 80vh;
+  width: auto;
+  height: auto;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  transition: transform 0.05s linear;
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+  background: #1a1a1a;
+  will-change: transform;
+}
+
+.Mappage-imageOverlayImg:active {
+  cursor: grabbing;
+}
+
+@keyframes hintPulse {
+
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Responsive adjustments for image overlay */
+@media (max-width: 480px) {
+  .Mappage-imageOverlayImg {
+    max-width: 92vw;
+    max-height: 70vh;
+    border-radius: 12px;
+  }
+
+}
+
+@media (min-width: 769px) {
+  .Mappage-imageOverlayImg {
+    max-width: 70vw;
+    max-height: 80vh;
+  }
+}
+
+/* ======================================== */
+/* ======== MEMORY OVERLAY STYLES ========= */
+/* ======== ADD THIS TO YOUR EXISTING CSS ========= */
+/* ======================================== */
+
+.Mappage-memoryOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 6000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.25s ease-out;
+  padding: 20px;
+}
+
+.Mappage-memoryOverlayContent {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: white;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  animation: slideUp 0.3s ease-out;
+}
+
+/* Memory Header */
+.Mappage-memoryHeader {
+  background: linear-gradient(135deg, #0A865F 0%, #08775B 100%);
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+.Mappage-memoryHeader::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(circle at 25% 40%, rgba(255, 255, 255, 0.08) 2px, transparent 2px),
+    radial-gradient(circle at 75% 60%, rgba(255, 255, 255, 0.06) 1px, transparent 2px);
+  background-size: 40px 40px, 30px 30px;
+  background-position: 0 0, 20px 20px;
+  pointer-events: none;
+}
+
+.Mappage-memoryBackBtn {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 1;
+  justify-self: flex-start;
+  align-self: flex-start;
+}
+
+.Mappage-memoryBackBtn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+.Mappage-memoryBackBtn svg {
+  stroke: white;
+}
+
+.Mappage-memoryTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* Memory Body */
+.Mappage-memoryBody {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.Mappage-memoryBody::-webkit-scrollbar {
+  width: 4px;
+}
+
+.Mappage-memoryBody::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 10px;
+}
+
+.Mappage-memoryBody::-webkit-scrollbar-thumb {
+  background: #0A865F;
+  border-radius: 10px;
+}
+
+/* Write Memory Section */
+.Mappage-memoryWriteSection {
+  background: transparent;
+  border-radius: 16px;
+  padding: 14px;
+  margin-top: 50px;
+}
+
+.Mappage-memoryTextarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid #ddd;
+  border-radius: 12px;
+  font-size: 14px;
+  resize: vertical;
+  font-family: 'Vazirmatn', 'Vazir', sans-serif;
+  background: white;
+  transition: all 0.2s ease;
+  direction: rtl;
+  color: #333;
+  min-height: 80px;
+}
+
+.Mappage-memoryTextarea:focus {
+  outline: none;
+  border-color: #0A865F;
+  box-shadow: 0 0 0 3px rgba(10, 134, 95, 0.1);
+}
+
+.Mappage-memoryTextarea::placeholder {
+  color: #999;
+  font-size: 13px;
+}
+
+.Mappage-memorySubmitBtn {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #0A865F 0%, #08775B 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  font-family: 'Vazirmatn', 'Vazir', sans-serif;
+}
+
+.Mappage-memorySubmitBtn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(10, 134, 95, 0.3);
+}
+
+.Mappage-memorySubmitBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.Mappage-memorySubmitBtn svg {
+  stroke: white;
+}
+
+.Mappage-memorySubmitted {
+  position: absolute;
+  top: 8%;
+  right: 0;
+  left: 0;
+  padding: 10px 14px;
+  background: #e8f5ee;
+  border-radius: 10px;
+  color: #0A865F;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  animation: fadeIn 0.3s ease;
+  z-index: 2000;
+}
+
+/* Memory List Section */
+.Mappage-memoryListSection {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.Mappage-memoryListHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 4px;
+}
+
+.Mappage-memoryCount {
+  font-size: 13px;
+  color: #666;
+  font-weight: 500;
+}
+
+.Mappage-memoryList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 350px;
+  max-height: calc(100vh - 280px) !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  padding-right: 4px;
+  padding-top: 14px;
+  border-top: 1px solid #d7d6d6;
+}
+
+.Mappage-memoryList::-webkit-scrollbar {
+  width: 4px;
+}
+
+.Mappage-memoryList::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 10px;
+}
+
+.Mappage-memoryList::-webkit-scrollbar-thumb {
+  background: #0A865F;
+  border-radius: 10px;
+}
+
+/* Memory Item */
+.Mappage-memoryItem {
+  background: white;
+  border-radius: 14px;
+  padding: 14px;
+  border: 1.5px solid #e8e8e8;
+  transition: all 0.2s ease;
+  animation: slideUp 0.3s ease-out;
+}
+
+.Mappage-memoryItem:hover {
+  border-color: #0A865F;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Pinned memory (user's own) */
+.Mappage-memoryItem.pinned {
+  border: 2.5px solid #FFD700;
+  background: linear-gradient(135deg, #fefcf8 0%, #faf6e8 100%);
+  box-shadow: 0 2px 12px rgba(255, 215, 0, 0.15);
+}
+
+.Mappage-memoryItem.pinned:hover {
+  border-color: #f0c000;
+  box-shadow: 0 4px 16px rgba(255, 215, 0, 0.2);
+}
+
+.Mappage-memoryUserInfo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.Mappage-memoryAvatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0A865F 0%, #08775B 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.Mappage-memoryAvatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.Mappage-memoryAvatar svg {
+  width: 18px;
+  height: 18px;
+}
+
+.Mappage-memoryUserName {
+  font-size: 13px;
+  font-weight: 600;
+  color: #0A865F;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.Mappage-memoryPinnedBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255, 215, 0, 0.15);
+  color: #b8960f;
+  font-size: 9px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+.Mappage-memoryPinnedBadge svg {
+  width: 10px;
+  height: 10px;
+}
+
+.Mappage-memoryText {
+  font-size: 13px;
+  line-height: 1.7;
+  color: #333;
+  margin: 0 0 6px 0;
+  word-wrap: break-word;
+  padding-right: 4px;
+  font-family: 'Vazirmatn', 'Vazir', sans-serif;
+}
+
+.Mappage-memoryTimestamp {
+  font-size: 10px;
+  color: #999;
+  display: block;
+  text-align: left;
+  font-weight: 400;
+}
+
+/* Empty state */
+.Mappage-memoryEmpty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+  gap: 8px;
+}
+
+.Mappage-memoryEmpty svg {
+  color: #ccc;
+}
+
+.Mappage-memoryEmpty p {
+  font-size: 15px;
+  color: #666;
+  font-weight: 500;
+  margin: 0;
+}
+
+.Mappage-memoryEmpty span {
+  font-size: 12px;
+  color: #999;
+}
+
+/* Show More Button */
+.Mappage-memoryShowMore {
+  padding: 10px 20px;
+  background: transparent;
+  border: 1.5px solid #0A865F;
+  border-radius: 30px;
+  color: #0A865F;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  font-family: 'Vazirmatn', 'Vazir', sans-serif;
+  margin-top: 4px;
+}
+
+.Mappage-memoryShowMore:hover {
+  color: #0A865F;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(10, 134, 95, 0.2);
+}
+
+.Mappage-memoryShowMore:hover svg {
+  color: #0A865F;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .Mappage-memoryOverlay {
+    padding: 10px;
+  }
+
+
+
+  .Mappage-memoryTitle {
+    font-size: 15px;
+  }
+
+  .Mappage-memoryBackBtn {
+    width: 34px;
+    height: 34px;
+  }
+
+  .Mappage-memoryBackBtn svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .Mappage-memoryBody {
+    padding: 14px;
+    gap: 14px;
+  }
+
+  .Mappage-memoryWriteSection {
+    padding: 10px;
+  }
+
+  .Mappage-memoryTextarea {
+    font-size: 13px;
+    padding: 10px 12px;
+    min-height: 60px;
+  }
+
+  .Mappage-memorySubmitBtn {
+    font-size: 13px;
+    padding: 10px 14px;
+  }
+
+  .Mappage-memoryItem {
+    padding: 10px;
+  }
+
+  .Mappage-memoryText {
+    font-size: 12px;
+  }
+
+  .Mappage-memoryUserName {
+    font-size: 12px;
+  }
+
+  .Mappage-memoryAvatar {
+    width: 28px;
+    height: 28px;
+  }
+
+  .Mappage-memoryAvatar svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .Mappage-memoryList {
+    max-height: 250px;
+  }
+
+  .Mappage-memoryPinnedBadge {
+    font-size: 8px;
+    padding: 1px 6px;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+
+  .Mappage-memoryList {
+    max-height: 300px;
+  }
+}
+
+.Mappage-detailMemoryBtn {
+  flex: 1;
+  background: linear-gradient(135deg, #BF9943 0%, #a88335 100%);
+  color: white;
+  border: none;
+  border-radius: 14px;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.Mappage-detailMemoryBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(191, 153, 67, 0.3);
+}
+
+.Mappage-detailMemoryBtn svg {
+  stroke: white;
+}

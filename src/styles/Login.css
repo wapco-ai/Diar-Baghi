@@ -1,0 +1,351 @@
+/* ===== Base Styles ===== */
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to top, #ffffff 40%, #033527);
+  padding: 20px;
+  font-family: 'Vazir', Tahoma, sans-serif;;
+}
+
+.login-container {
+  background: transparent;
+  width: 100%;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+  max-height: 900px;
+  text-align: center;
+}
+
+/* ===== Logo Styles ===== */
+.logo-container {
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.login-logo2 {
+  width: 280px;
+  height: auto;
+}
+
+
+
+
+
+/* ===== Text Content ===== */
+.login-text-content {
+  text-align: right;
+  margin-bottom: 30px;
+  font-family: 'Vazir', Tahoma, sans-serif;
+}
+
+.login-title {
+  color: #2c3e50;
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.login-description {
+  color: #2c3e50;
+  line-height: 1.8;
+  font-size: 1rem;
+  margin: 0;
+  font-family: 'Vazir', Tahoma, sans-serif;
+}
+
+/* ===== Form Styles ===== */
+.login-form {
+  margin-top:50px;
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 30px;
+}
+
+.phone-input-container {
+  position: relative;
+}
+
+.phone-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.phone-input {
+  width: 100%;
+  padding: 15px 45px 15px 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  text-align: right;
+  outline-color: #2D6C56;
+  font-family: 'Vazir', Tahoma, sans-serif;
+}
+
+/* ===== Button Styles ===== */
+.login-button {
+  width: 100%;
+  padding: 16px;
+  background-color: #D9D9D9;
+  color: #4e4c4c;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  font-family: 'Vazir', Tahoma, sans-serif;
+}
+
+.login-button.active {
+  background-color: #2D6C56;
+  color: white;
+  box-shadow: 0 2px 5px rgba(52, 152, 219, 0.2);
+}
+
+.login-button.active:hover {
+  background-color: #2D6C56;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(52, 152, 219, 0.3);
+}
+
+/* ===== Verification Styles ===== */
+.verification-container {
+  width: 100%;
+}
+
+.verification-message {
+  margin-bottom: 20px;
+  font-family: 'Vazir', Tahoma, sans-serif;
+}
+
+.verification-edit {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 10px;
+  color: #666;
+  font-family: 'Vazir', Tahoma, sans-serif;
+}
+
+.edit-button {
+  background: none;
+  border: none;
+  color: #2D6C56;
+  font-weight: 500;
+  font-family: 'Vazir', Tahoma, sans-serif;
+}
+
+.verification-code-inputs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+  gap: 10px;
+  font-family: 'Vazir', Tahoma, sans-serif;
+}
+
+.code-input {
+  width: 50px;
+  height: 60px;
+  text-align: center;
+  font-size: 1.5rem;
+  border: 1px solid grey;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+.code-input:focus {
+  outline: none;
+}
+
+.verification-resend {
+  text-align: center;
+  color: #888;
+  font-size: 0.9rem;
+  margin-top: 20px;
+  font-family: 'Vazir', Tahoma, sans-serif;
+}
+
+/* ===== Terms Styles ===== */
+.login-terms {
+  margin-top: auto;
+  padding-top: 20px;
+  color: #888;
+  font-size: 0.85rem;
+  text-align: center;
+  border-top: 1px solid #eee;
+  direction: rtl;
+  text-align: right;
+  font-family: 'Vazir', Tahoma, sans-serif;
+}
+
+/* ===== RTL/LTR Language Support ===== */
+:root:lang(en) .login-container,
+:root:lang(en) .login-text-content,
+:root:lang(en) .login-title,
+:root:lang(en) .login-description,
+:root:lang(en) .login-terms {
+  direction: ltr;
+  text-align: left;
+}
+
+:root:lang(en) .login-title,
+:root:lang(en) .login-description,
+:root:lang(en) .login-terms p {
+  text-align: left;
+}
+
+:root:lang(en) .login-form {
+  text-align: left;
+}
+
+:root:lang(en) .login-button {
+  text-align: center;
+}
+
+:root:lang(en) .verification-message {
+  text-align: left;
+}
+
+:root:lang(en) .verification-edit {
+  justify-content: flex-start;
+}
+
+:root:lang(en) .login-terms {
+  text-align: center;
+}
+
+:root:lang(en) .login-text-content {
+  text-align: left;
+}
+
+:root:lang(en) .phone-input {
+  width: 100%;
+  padding: 15px 45px 15px 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  text-align: left;
+  direction: ltr;
+}
+
+:root:lang(en) .phone-input-container {
+  direction: ltr;
+}
+
+:root:lang(en) .phone-icon {
+  left: 15px;
+  right: auto;
+}
+
+:root:lang(en) .phone-input {
+  padding: 15px 15px 15px 45px;
+}
+
+/* ===== Error Message Styles ===== */
+.error-message {
+  position: absolute;
+  top: 20px;
+  width: 90%;
+  max-width: 450px;
+  background-color: #FCE3E1;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: #EA4335;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-out;
+  font-family: 'Vazir', Tahoma, sans-serif;
+
+}
+
+:root:lang(fa) .error-message,
+:root:lang(ur) .error-message,
+:root:lang(ar) .error-message {
+  font-family: 'Vazir', Tahoma, sans-serif;
+  direction: rtl;
+}
+
+.error-icon {
+  flex-shrink: 0;
+}
+
+/* Input error state */
+.phone-input.error {
+  border : 1px solid #EA4335;
+  width: 100%;
+  padding: 15px 45px 15px 15px;
+  border-radius: 8px;
+  font-size: 14px;
+  text-align: right;
+  outline: none;
+}
+
+:root:lang(en) .phone-input.error{
+  border : 2px solid #EA4335;
+  outline: none;
+}
+
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* Add these styles to your existing CSS */
+
+.resend-button {
+  background-color: transparent;
+  color: #2D6C56;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Vazir', Tahoma, sans-serif;
+  width: 100%;
+}
+
+.resend-button:hover {
+  background-color: transparent;
+    color: #2D6C56;
+}
+
+.resend-button:disabled {
+  background-color: transparent;
+  color: #4e4c4c;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Update existing verification-resend for RTL/LTR support */
+:root:lang(en) .resend-button {
+  font-family: inherit;
+}
+
+:root:lang(fa) .resend-button,
+:root:lang(ur) .resend-button,
+:root:lang(ar) .resend-button {
+  font-family: 'Vazir', Tahoma, sans-serif;
+}

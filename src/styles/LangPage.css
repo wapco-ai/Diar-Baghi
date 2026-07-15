@@ -1,0 +1,178 @@
+.lang-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+  max-height: 900px;
+  width: 100%;
+  background: linear-gradient(to top, #ffffff 40%, #033527);
+  font-family: 'Vazir', Tahoma, sans-serif;
+}
+
+@media (max-width: 400px) {
+  .lang-page-container {
+    max-height: 95vh;
+    min-height: 95vh;
+  }
+}
+
+
+
+.lang-logo {
+  width: 280px;
+  /* Larger logo size */
+  height: auto;
+  margin-bottom: 50px;
+}
+
+.lang-welcome-text h1 {
+  color: #333;
+  font-size: 1.5rem;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto 15px;
+}
+
+.lang-welcome-text p {
+  color: #555;
+  font-size: 0.9rem;
+  line-height: 1.8;
+  font-family: 'Vazir', Tahoma, sans-serif;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto 10px;
+}
+
+.lang-options-list {
+  width: 100%;
+  max-width: 300px;
+}
+
+.lang-option {
+  display: flex;
+  align-items: center;
+  padding: 8px 15px 8px 40px;
+  /* Added left padding for circle space */
+  margin: 15px 0;
+  background-color: white;
+  border-radius: 50px;
+  transition: all 0.2s;
+  position: relative;
+  font-weight: 600;
+  border: 1px solid #999;
+}
+
+.selection-circle {
+  position: absolute;
+  left: 15px;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #999;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inner-circle {
+  width: 10px;
+  height: 10px;
+  background-color: #2D6C56;
+  border-radius: 50%;
+}
+
+.lang-option.selected .selection-circle {
+  border-color: #2D6C56;
+}
+
+.lang-option.selected {
+  border: 1px solid #2D6C56;
+}
+
+
+.lang-name {
+  text-align: right;
+  width: 100%;
+  padding-right: 10px;
+}
+
+.lang-login-btn {
+  width: 100%;
+  max-width: 300px;
+  padding: 12px;
+  margin-top: 20px;
+  background-color: #2D6C56;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: 'Vazir', Tahoma, sans-serif;
+}
+
+@media (max-width: 400px) {
+  .lang-login-btn {
+    margin-top: 10px;
+  }
+}
+
+
+.lang-login-btn.disabled {
+  background-color: #bdc3c7;
+}
+
+.lang-text-container {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  width: 45%;
+}
+
+.lang-name {
+  text-align: right;
+  font-size: 1rem;
+}
+
+.lang-code-fa {
+  color: #555;
+  font-size: 0.8rem;
+  margin-left: 25px;
+  margin-top: 2px;
+  /* Adjust as needed for فارسی (FA) */
+}
+
+.lang-code-ur {
+  color: #555;
+  font-size: 0.8rem;
+  margin-left: 45px;
+  margin-top: 2px;
+  /* Adjust as needed for اردو (Ur) */
+}
+
+.lang-code-ar {
+  color: #555;
+  font-size: 0.8rem;
+  margin-left: 25px;
+  margin-top: 2px;
+  /* Adjust as needed for العربية (AR) */
+}
+
+.lang-code-en {
+  color: #555;
+  font-size: 0.8rem;
+  margin-left: 15px;
+  margin-top: 2px;
+  /* Adjust as needed for English (EN) */
+}
+
+:root:lang(en) .lang-code-en,
+:root:lang(en) .lang-code-ar,
+:root:lang(en) .lang-code-fa {
+  margin-right: 20px;
+  margin-left: 0px;
+}
+
+:root:lang(en) .lang-code-ur {
+  margin-right: 35px;
+  margin-left: 0px;
+}
