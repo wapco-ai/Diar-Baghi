@@ -29,15 +29,51 @@
   background: #F3E8D2;
   border-bottom: 2px solid #B9A46D;
   margin-bottom: 0px;
+  position: relative;
 }
 
-.Helppage-Logo{
+.Helppage-Logo {
   width: 180px;
   height: auto;
   filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
   position: relative;
   z-index: 2;
 }
+
+/* Back Button */
+.Helppage-backButton {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #1E7840;
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.Helppage-backButton:hover {
+  background: #166334;
+  transform: translateY(-50%) scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.Helppage-backButton:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.Helppage-backButton svg {
+  stroke: white;
+}
+
 /* Main Content */
 .Helppage-mainContent {
   padding: 20px 16px 0px 16px;
@@ -157,10 +193,13 @@
 }
 
 @keyframes pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 0.6;
     transform: scale(1);
   }
+
   50% {
     opacity: 1;
     transform: scale(1.1);
@@ -315,7 +354,7 @@
   box-shadow: 0 0 0 3px rgba(30, 120, 64, 0.2);
 }
 
-/* Search Results */
+/* Search Results - Updated for better alignment */
 .Helppage-searchResults {
   margin-top: 20px;
 }
@@ -324,15 +363,20 @@
   font-size: 16px;
   color: #555;
   margin-bottom: 12px;
+  padding-right: 4px;
 }
 
 .Helppage-resultsList {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  max-height: calc(100vh - 100px) !important;
+  height:100vh;
+  background-color: white;
+  max-height: calc(80vh - 100px) !important;
   overflow-y: auto !important;
   overflow-x: hidden !important;
+
+
 }
 
 .Helppage-resultCard {
@@ -341,10 +385,11 @@
   align-items: center;
   background: white;
   border-radius: 16px;
-  padding: 14px;
+  padding: 14px 18px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   cursor: pointer;
   transition: all 0.2s;
+  direction: rtl;
 }
 
 .Helppage-resultCard:hover {
@@ -354,27 +399,32 @@
 
 .Helppage-resultInfo {
   display: flex;
-  flex-direction:row;
+  flex-direction: row;
   gap: 20px;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
-  height: 5vh;
+  width: 100%;
+  flex-wrap: wrap;
 }
 
 .Helppage-resultName {
   font-size: 16px;
   font-weight: 600;
   color: #2C5E45;
+  min-width: 100px;
 }
 
 .Helppage-resultDetails {
   font-size: 14px;
   color: #777;
+  white-space: nowrap;
 }
 
 .Helppage-resultDate {
   font-size: 14px;
   color: #999;
+  white-space: nowrap;
+  margin-right: auto;
 }
 
 .Helppage-noResults {
@@ -641,13 +691,13 @@
 }
 
 /* Checked state */
-.Helppage-checkboxLabel input:checked + span::before {
+.Helppage-checkboxLabel input:checked+span::before {
   background: #C09A46;
   border-color: #C09A46;
   transform: translateY(-50%) scale(1.1);
 }
 
-.Helppage-checkboxLabel input:checked + span::after {
+.Helppage-checkboxLabel input:checked+span::after {
   transform: translateY(-50%) scale(1);
 }
 
@@ -657,7 +707,7 @@
 }
 
 /* Active/click effect */
-.Helppage-checkboxLabel input:active + span::before {
+.Helppage-checkboxLabel input:active+span::before {
   transform: translateY(-50%) scale(0.95);
 }
 
@@ -756,11 +806,13 @@
     height: 0;
     opacity: 1;
   }
+
   50% {
     width: 400px;
     height: 400px;
     opacity: 0.8;
   }
+
   100% {
     width: 800px;
     height: 800px;
@@ -790,10 +842,12 @@
     opacity: 0;
     transform: scale(0) rotate(0deg);
   }
+
   30% {
     opacity: 1;
     transform: scale(1.2) rotate(45deg);
   }
+
   100% {
     opacity: 0;
     transform: scale(0.5) rotate(180deg) translateY(-60px);
@@ -814,10 +868,12 @@
     opacity: 0;
     transform: scale(0);
   }
+
   40% {
     opacity: 0.5;
     transform: scale(1);
   }
+
   100% {
     opacity: 0;
     transform: scale(1.3) translateY(-50px);
@@ -857,6 +913,7 @@
     opacity: 0;
     transform: scale(0.9);
   }
+
   100% {
     opacity: 1;
     transform: scale(1);
@@ -1042,6 +1099,33 @@
     height: 16px;
   }
 
+  .Helppage-backButton {
+    width: 36px;
+    height: 36px;
+    left: 12px;
+  }
+
+  .Helppage-backButton svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .Helppage-resultInfo {
+    gap: 10px;
+  }
+
+  .Helppage-resultName {
+    font-size: 14px;
+    min-width: 70px;
+  }
+
+  .Helppage-resultDetails {
+    font-size: 12px;
+  }
+
+  .Helppage-resultDate {
+    font-size: 12px;
+  }
 }
 
 @media (min-width: 768px) {
@@ -1082,11 +1166,13 @@
     transform: scale(0.8) rotate(0deg);
     filter: brightness(1);
   }
+
   20% {
     opacity: 1;
     transform: scale(1.3) rotate(45deg);
     filter: brightness(1.5);
   }
+
   100% {
     opacity: 0;
     transform: translate(var(--moveX, -200px), var(--moveY, -200px)) scale(0.3) rotate(180deg);
@@ -1099,10 +1185,12 @@
     opacity: 0.6;
     transform: scale(0.5);
   }
+
   30% {
     opacity: 0.7;
     transform: scale(1.1);
   }
+
   100% {
     opacity: 0;
     transform: translate(var(--moveX, -150px), var(--moveY, -150px)) scale(0.2);

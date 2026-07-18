@@ -186,68 +186,8 @@
   font-family: 'Vazir', Tahoma, sans-serif;
 }
 
-/* ===== RTL/LTR Language Support ===== */
-:root:lang(en) .login-container,
-:root:lang(en) .login-text-content,
-:root:lang(en) .login-title,
-:root:lang(en) .login-description,
-:root:lang(en) .login-terms {
-  direction: ltr;
-  text-align: left;
-}
 
-:root:lang(en) .login-title,
-:root:lang(en) .login-description,
-:root:lang(en) .login-terms p {
-  text-align: left;
-}
 
-:root:lang(en) .login-form {
-  text-align: left;
-}
-
-:root:lang(en) .login-button {
-  text-align: center;
-}
-
-:root:lang(en) .verification-message {
-  text-align: left;
-}
-
-:root:lang(en) .verification-edit {
-  justify-content: flex-start;
-}
-
-:root:lang(en) .login-terms {
-  text-align: center;
-}
-
-:root:lang(en) .login-text-content {
-  text-align: left;
-}
-
-:root:lang(en) .phone-input {
-  width: 100%;
-  padding: 15px 45px 15px 15px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 16px;
-  text-align: left;
-  direction: ltr;
-}
-
-:root:lang(en) .phone-input-container {
-  direction: ltr;
-}
-
-:root:lang(en) .phone-icon {
-  left: 15px;
-  right: auto;
-}
-
-:root:lang(en) .phone-input {
-  padding: 15px 15px 15px 45px;
-}
 
 /* ===== Error Message Styles ===== */
 .error-message {
@@ -271,12 +211,6 @@
 
 }
 
-:root:lang(fa) .error-message,
-:root:lang(ur) .error-message,
-:root:lang(ar) .error-message {
-  font-family: 'Vazir', Tahoma, sans-serif;
-  direction: rtl;
-}
 
 .error-icon {
   flex-shrink: 0;
@@ -290,11 +224,6 @@
   border-radius: 8px;
   font-size: 14px;
   text-align: right;
-  outline: none;
-}
-
-:root:lang(en) .phone-input.error{
-  border : 2px solid #EA4335;
   outline: none;
 }
 
@@ -339,13 +268,3 @@
   box-shadow: none;
 }
 
-/* Update existing verification-resend for RTL/LTR support */
-:root:lang(en) .resend-button {
-  font-family: inherit;
-}
-
-:root:lang(fa) .resend-button,
-:root:lang(ur) .resend-button,
-:root:lang(ar) .resend-button {
-  font-family: 'Vazir', Tahoma, sans-serif;
-}

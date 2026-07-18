@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/images/Main_Logo2.png';
 import '../styles/LangPage.css';
@@ -19,6 +19,17 @@ const LangPage = () => {
     setSelectedLanguage(langId);
   };
 
+  const [animationFinished, setAnimationFinished] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setAnimationFinished(true);
+    }, 5000); // 3s pause + 2s movement
+
+    return () => clearTimeout(timer);
+  }, []);
+
+
   const handleLogin = () => {
     if (selectedLanguage) {
       const selected = languages.find((l) => l.id === selectedLanguage);
@@ -30,35 +41,47 @@ const LangPage = () => {
     }
   };
 
+
   return (
     <div className="lang-page-container">
-      <img src={logo} alt="دیار باقی" className="lang-logo" />
+      <div className={`logo-animation-wrapper ${animationFinished ? "finished" : ""}`}>
+        <div className="page-overlay"></div>
 
-      <div className="lang-welcome-text">
-        <h1 className="welcome-heading">خوش آمدید</h1>
-        <p className="welcome-paragraph">لطفاً زبان مورد نظر خود را انتخاب کنید</p>
+        <img
+          src={logo}
+          alt="دیار باقی"
+          className={`lang-logo ${animationFinished ? "finished" : ""}`}
+        />
       </div>
 
-      <div className="lang-options-list">
-        {languages.map((lang) => (
-          <div
-            key={lang.id}
-            className={`lang-option ${selectedLanguage === lang.id ? 'selected' : ''}`}
-            onClick={() => handleLanguageSelect(lang.id)}
-          >
-            <div className="selection-circle">
-              {selectedLanguage === lang.id && <div className="inner-circle" />}
+      <div className={`lang-page-content ${animationFinished ? "show" : ""}`}>
+        <div className="lang-welcome-text">
+          <h1 className="welcome-heading">خوش آمدید</h1>
+          <p className="welcome-paragraph">لطفاً زبان مورد نظر خود را انتخاب کنید</p>
+        </div>
+
+        <div className="lang-options-list">
+          {languages.map((lang, index) => (
+            <div
+              style={{ animationDelay: `${index * 0.2}s` }}
+              key={lang.id}
+              className={`lang-option fade-item ${selectedLanguage === lang.id ? 'selected' : ''}`}
+              onClick={() => handleLanguageSelect(lang.id)}
+            >
+              <div className="selection-circle">
+                {selectedLanguage === lang.id && <div className="inner-circle" />}
+              </div>
+              <div className="lang-text-container">
+                <span className={`lang-code lang-code-${lang.code?.toLowerCase()}`}>
+                  ({lang.code?.toUpperCase()})
+                </span>
+                <span className={`lang-name ${lang.direction === 'ltr' ? 'force-rtl' : ''}`}>
+                  {lang.name}
+                </span>
+              </div>
             </div>
-            <div className="lang-text-container">
-              <span className={`lang-code lang-code-${lang.code?.toLowerCase()}`}>
-                ({lang.code?.toUpperCase()})
-              </span>
-              <span className={`lang-name ${lang.direction === 'ltr' ? 'force-rtl' : ''}`}>
-                {lang.name}
-              </span>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
       <button

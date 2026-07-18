@@ -17,13 +17,14 @@
   }
 }
 
-
-
 .lang-logo {
   width: 280px;
-  /* Larger logo size */
   height: auto;
   margin-bottom: 50px;
+}
+
+.lang-welcome-text {
+  margin-top: 70px;
 }
 
 .lang-welcome-text h1 {
@@ -53,7 +54,6 @@
   display: flex;
   align-items: center;
   padding: 8px 15px 8px 40px;
-  /* Added left padding for circle space */
   margin: 15px 0;
   background-color: white;
   border-radius: 50px;
@@ -90,7 +90,6 @@
   border: 1px solid #2D6C56;
 }
 
-
 .lang-name {
   text-align: right;
   width: 100%;
@@ -108,6 +107,9 @@
   border-radius: 8px;
   font-size: 1rem;
   font-family: 'Vazir', Tahoma, sans-serif;
+  opacity: 0;
+  animation: itemFade .8s forwards;
+  animation-delay: 6s;
 }
 
 @media (max-width: 400px) {
@@ -115,7 +117,6 @@
     margin-top: 10px;
   }
 }
-
 
 .lang-login-btn.disabled {
   background-color: #bdc3c7;
@@ -138,7 +139,6 @@
   font-size: 0.8rem;
   margin-left: 25px;
   margin-top: 2px;
-  /* Adjust as needed for فارسی (FA) */
 }
 
 .lang-code-ur {
@@ -146,7 +146,6 @@
   font-size: 0.8rem;
   margin-left: 45px;
   margin-top: 2px;
-  /* Adjust as needed for اردو (Ur) */
 }
 
 .lang-code-ar {
@@ -154,7 +153,6 @@
   font-size: 0.8rem;
   margin-left: 25px;
   margin-top: 2px;
-  /* Adjust as needed for العربية (AR) */
 }
 
 .lang-code-en {
@@ -162,7 +160,6 @@
   font-size: 0.8rem;
   margin-left: 15px;
   margin-top: 2px;
-  /* Adjust as needed for English (EN) */
 }
 
 :root:lang(en) .lang-code-en,
@@ -175,4 +172,114 @@
 :root:lang(en) .lang-code-ur {
   margin-right: 35px;
   margin-left: 0px;
+}
+
+.logo-animation-wrapper {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.lang-page-content {
+  margin-top: 120px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+}
+
+.lang-page-content.show {
+  animation: contentFade .8s forwards;
+}
+
+.page-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,.85);
+  animation: overlayFade 5s forwards;
+}
+
+.lang-logo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 280px;      
+  height: auto;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(1.6);
+  animation:
+      logoFade .8s ease-out forwards,
+      logoMove 2.3s cubic-bezier(.22,.61,.36,1) forwards 3s;
+}
+
+/* Fade items - initially hidden */
+.fade-item {
+  opacity: 0;
+  transform: translateY(25px);
+}
+
+/* When content shows, animate items with their delays */
+.lang-page-content.show .fade-item {
+  animation: itemFade .7s forwards;
+}
+
+/* Keyframes */
+@keyframes logoFade {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.35);
+    filter: blur(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.6);
+    filter: blur(0);
+  }
+}
+
+@keyframes logoMove {
+  0% {
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1.6);
+  }
+  100% {
+    top: 40px;
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+@keyframes overlayFade {
+  0% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes contentFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes itemFade {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

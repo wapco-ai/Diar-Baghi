@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import logoPic5 from '../assets/images/pic5.png';
 import pic1 from '../assets/images/pic1.png';
 import pic2 from '../assets/images/pic2.png';
@@ -14,6 +15,7 @@ let html2canvas = null;
 let jsPDF = null;
 
 const HelpPage = () => {
+  const navigate = useNavigate();
   const [showReceipt, setShowReceipt] = useState(false);
   const [showSpiritualEffect, setShowSpiritualEffect] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState(null);
@@ -35,14 +37,31 @@ const HelpPage = () => {
   const [notifyFamily, setNotifyFamily] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState('bank');
 
-  // Static data for deceased persons
+  // Static data for deceased persons - Updated to match SearchPage data
   const deceasedData = [
-    { id: 1, name: 'احمد', surname: 'رضایی', fullName: 'احمد رضایی', province: 'تهران', city: 'تهران', section: 'قطعه 12', deathDate: '1402/05/15', row: '5' },
-    { id: 2, name: 'فاطمه', surname: 'حسینی', fullName: 'فاطمه حسینی', province: 'اصفهان', city: 'اصفهان', section: 'قطعه 7', deathDate: '1401/08/22', row: '3' },
-    { id: 3, name: 'محمد', surname: 'کریمی', fullName: 'محمد کریمی', province: 'فارس', city: 'شیراز', section: 'قطعه 18', deathDate: '1403/01/10', row: '2' },
-    { id: 4, name: 'زهرا', surname: 'محمدی', fullName: 'زهرا محمدی', province: 'خراسان رضوی', city: 'مشهد', section: 'قطعه 14', deathDate: '1400/12/05', row: '7' },
-    { id: 5, name: 'علی', surname: 'اکبری', fullName: 'علی اکبری', province: 'تهران', city: 'ری', section: 'قطعه 5', deathDate: '1402/09/18', row: '1' },
-    { id: 6, name: 'سارا', surname: 'احمدی', fullName: 'سارا احمدی', province: 'تهران', city: 'تهران', section: 'قطعه 3', deathDate: '1403/02/01', row: '4' },
+    { id: 1, name: 'احمد', surname: 'رضایی', fullName: 'احمد رضایی', province: 'خراسان رضوی', city: 'مشهد', section: 'بلوک 12', deathDate: '1402/05/15', row: '5', number: '7' },
+    { id: 2, name: 'فاطمه', surname: 'حسینی', fullName: 'فاطمه حسینی', province: 'خراسان رضوی', city: 'مشهد', section: 'بلوک 7', deathDate: '1401/08/22', row: '3', number: '12' },
+    { id: 3, name: 'محمد', surname: 'کریمی', fullName: 'محمد کریمی', province: 'خراسان رضوی', city: 'مشهد', section: 'بلوک 18', deathDate: '1403/01/10', row: '2', number: '9' },
+    { id: 4, name: 'زهرا', surname: 'محمدی', fullName: 'زهرا محمدی', province: 'خراسان رضوی', city: 'مشهد', section: 'بلوک 14', deathDate: '1400/12/05', row: '7', number: '4' },
+    { id: 5, name: 'علی', surname: 'اکبری', fullName: 'علی اکبری', province: 'خراسان رضوی', city: 'مشهد', section: 'بلوک 5', deathDate: '1402/09/18', row: '1', number: '15' },
+    { id: 6, name: 'سارا', surname: 'احمدی', fullName: 'سارا احمدی', province: 'خراسان رضوی', city: 'مشهد', section: 'بلوک 3', deathDate: '1403/02/01', row: '4', number: '8' },
+    { id: 7, name: 'محمدرضا', surname: 'ابراهیمی', fullName: 'محمدرضا ابراهیمی', province: 'خراسان رضوی', city: 'مشهد', section: 'بلوک 2', deathDate: '1398/07/23', row: '8', number: '12' },
+    { id: 8, name: 'حسین', surname: 'محمدی', fullName: 'حسین محمدی', province: 'خراسان رضوی', city: 'مشهد', section: 'بلوک 14', deathDate: '1401/06/28', row: '8', number: '12' },
+    { id: 9, name: 'مریم', surname: 'احمدی', fullName: 'مریم احمدی', province: 'خراسان رضوی', city: 'مشهد', section: 'بلوک 12', deathDate: '1401/06/30', row: '4', number: '8' },
+    { id: 10, name: 'رضا', surname: 'قاسمی', fullName: 'رضا قاسمی', province: 'خراسان رضوی', city: 'مشهد', section: 'بلوک 2', deathDate: '1403/02/14', row: '6', number: '11' },
+    { id: 11, name: 'سارا', surname: 'نوری', fullName: 'سارا نوری', province: 'خراسان رضوی', city: 'مشهد', section: 'بلوک 14', deathDate: '1400/10/25', row: '8', number: '2' },
+    { id: 12, name: 'حسین', surname: 'موسوی', fullName: 'حسین موسوی', province: 'خراسان رضوی', city: 'مشهد', section: 'بلوک 18', deathDate: '1402/11/12', row: '3', number: '6' },
+    { id: 13, name: 'نگار', surname: 'صادقی', fullName: 'نگار صادقی', province: 'خراسان رضوی', city: 'مشهد', section: 'بلوک 7', deathDate: '1401/04/08', row: '5', number: '14' },
+    { id: 14, name: 'امیر', surname: 'حسینی', fullName: 'امیر حسینی', province: 'خراسان رضوی', city: 'مشهد', section: 'بلوک 12', deathDate: '1403/03/20', row: '2', number: '10' },
+    { id: 15, name: 'لیلا', surname: 'کاظمی', fullName: 'لیلا کاظمی', province: 'خراسان رضوی', city: 'مشهد', section: 'بلوک 5', deathDate: '1402/07/09', row: '4', number: '5' },
+    { id: 16, name: 'مجید', surname: 'رحیمی', fullName: 'مجید رحیمی', province: 'خراسان رضوی', city: 'مشهد', section: 'بلوک 2', deathDate: '1401/12/28', row: '1', number: '13' },
+    { id: 17, name: 'پریسا', surname: 'عباسی', fullName: 'پریسا عباسی', province: 'خراسان رضوی', city: 'مشهد', section: 'بلوک 14', deathDate: '1400/09/17', row: '6', number: '1' },
+    { id: 18, name: 'سعید', surname: 'مرادی', fullName: 'سعید مرادی', province: 'خراسان رضوی', city: 'مشهد', section: 'بلوک 18', deathDate: '1403/04/05', row: '7', number: '16' },
+    { id: 19, name: 'مهسا', surname: 'رضایی', fullName: 'مهسا رضایی', province: 'خراسان رضوی', city: 'مشهد', section: 'بلوک 12', deathDate: '1402/10/03', row: '3', number: '9' },
+    { id: 20, name: 'وحید', surname: 'علیپور', fullName: 'وحید علیپور', province: 'خراسان رضوی', city: 'مشهد', section: 'بلوک 7', deathDate: '1401/05/14', row: '8', number: '7' },
+    { id: 21, name: 'ندا', surname: 'محمدیان', fullName: 'ندا محمدیان', province: 'خراسان رضوی', city: 'مشهد', section: 'بلوک 5', deathDate: '1400/11/22', row: '2', number: '4' },
+    { id: 22, name: 'بهرام', surname: 'شاهینی', fullName: 'بهرام شاهینی', province: 'خراسان رضوی', city: 'مشهد', section: 'بلوک 14', deathDate: '1402/08/19', row: '5', number: '12' },
+    { id: 23, name: 'گلناز', surname: 'احمدی', fullName: 'گلناز احمدی', province: 'خراسان رضوی', city: 'مشهد', section: 'بلوک 2', deathDate: '1403/06/01', row: '4', number: '8' },
   ];
 
   // Load PDF libraries dynamically
@@ -122,6 +141,11 @@ const HelpPage = () => {
   };
 
   const [spiritualElements, setSpiritualElements] = useState([]);
+
+  // Handle back navigation
+  const handleBack = () => {
+    navigate('/Mainpage');
+  };
 
   // Open payment overlay
   const handleMainPayment = (paymentOption) => {
@@ -373,6 +397,11 @@ const HelpPage = () => {
     <div className="Helppage-container">
       {/* Header */}
       <div className="Helppage-header">
+        <button className="Helppage-backButton" onClick={handleBack}>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+        </button>
         <img src={Logo} alt="دیار باقی" className="Helppage-Logo" />
       </div>
 
@@ -496,7 +525,7 @@ const HelpPage = () => {
                             <span className="Helppage-resultName">{person.fullName}</span>
                             <span className="Helppage-resultDetails">{person.city}</span>
                             <span className="Helppage-resultDetails">{person.section} - ردیف {person.row}</span>
-                            <span className="Helppage-resultDate">{person.deathDate}</span>
+                            <span className="Helppage-resultDetails">{person.number} - ردیف {person.row}</span>
                           </div>
                         </div>
                       ))}
