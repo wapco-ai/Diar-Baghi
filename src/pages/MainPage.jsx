@@ -29,12 +29,14 @@ const MainPage = () => {
 
   // --- Feedback Form State ---
   const [feedbackAnswers, setFeedbackAnswers] = useState({
-    cemeteryCleanliness: null,
-    staffBehavior: null,
-    graveReservation: null,
-    memorialServices: null,
-    overallExperience: null,
-    appNavigation: null,
+    q1: null,
+    q2: null,
+    q3: null,
+    q4: null,
+    q5: null,
+    q6: null,
+    q7: null,
+    q8: null,
   });
   const [additionalOpinion, setAdditionalOpinion] = useState('');
   const [feedbackSubmitted, setFeedbackSubmitted] = useState(false);
@@ -62,21 +64,48 @@ const MainPage = () => {
     themeColor: 'green',
   });
 
-  const ratingOptions = [
-    { value: 1, label: 'خیلی ضعیف' },
-    { value: 2, label: 'ضعیف' },
-    { value: 3, label: 'متوسط' },
-    { value: 4, label: 'خوب' },
-    { value: 5, label: 'خیلی خوب' },
-  ];
-
+  // New survey questions as specified (with "بود" and "بودند" removed)
   const feedbackQuestions = [
-    { id: 'cemeteryCleanliness', text: 'نظافت و بهداشت محیط آرامستان را چگونه ارزیابی می‌کنید؟' },
-    { id: 'staffBehavior', text: 'برخورد پرسنل و مسئولین آرامستان چگونه بود؟' },
-    { id: 'graveReservation', text: 'فرآیند رزرو قبر (آنلاین یا حضوری) را چگونه ارزیابی می‌کنید؟' },
-    { id: 'memorialServices', text: 'خدمات مزار (مانند سنگ قبر، کاشت گل، بنر و ...) رضایت‌بخش بوده است؟' },
-    { id: 'overallExperience', text: 'تجربه کلی شما از استفاده از اپلیکیشن دیار باقی چگونه است؟' },
-    { id: 'appNavigation', text: 'راحتی استفاده و راهبری در اپلیکیشن را چگونه می‌بینید؟' },
+    { 
+      id: 'q1', 
+      text: 'نحوه برخورد، همراهی و همدلی کارکنان و پرسنل مجموعه با شما و خانواده محترم چگونه بود؟',
+      options: ['خیلی خوب', 'خوب', 'متوسط', 'ضعیف', 'بسیار ضعیف']
+    },
+    { 
+      id: 'q2', 
+      text: 'سرعت انجام مراحل اداری و امور مربوط به متوفی در واحد پذیرش چگونه بود؟',
+      options: ['خیلی خوب', 'خوب', 'برخی مراحل خوب', 'معطل شدیم', 'بسیار کند']
+    },
+    { 
+      id: 'q3', 
+      text: 'میزان پاسخگویی شفاف کارکنان و دسترسی به آنان در هنگام نیاز و درخواست شما چگونه بود؟',
+      options: ['خیلی خوب', 'خوب', 'فقط برخی کارکنان خوب', 'ضعیف', 'برخوردی نداشتم']
+    },
+    { 
+      id: 'q4', 
+      text: 'به نظر شما آراستگی آرامستان در بخش های فضای سبز، سرویس های بهداشتی و نمازخانه ها چگونه بود ؟',
+      options: ['خیلی خوب', 'خوب', 'دقت نکردم', 'معمولی', 'ضعیف']
+    },
+    { 
+      id: 'q5', 
+      text: 'کیفیت و کمیت خدمات عمرانی مانند بلوک های جدید، پارکینگهای خودرو و پارکهای بازی کودکان چگونه بود؟',
+      options: ['خیلی خوب', 'خوب', 'استفاده نکردم', 'معمولی', 'ضعیف']
+    },
+    { 
+      id: 'q6', 
+      text: 'کیفیت و کمیت ارائه خدمات در مرکز اعزام آمبولانس(کیفیت خودرو، اخلاق و رفتار راننده، تاخیر و معطلی و...) چگونه بود؟',
+      options: ['خیلی خوب', 'خوب', 'استفاده نکردم', 'معمولی', 'ضعیف']
+    },
+    { 
+      id: 'q7', 
+      text: 'در مجموع میزان رضایت شما از نتایج خدمات ارائه شده در مراحل تجهیز میت (تغسیل،تکفین و تدفین) چگونه بود؟',
+      options: ['خیلی خوب', 'خوب', 'متوسط', 'ضعیف', 'بسیار ضعیف']
+    },
+    { 
+      id: 'q8', 
+      text: 'به نظر شما در مقایسه با سال و سالیان قبل، بطور کلی محیط آرامستان و خدمات مربوط به متوفی چه تغییراتی داشته است؟',
+      options: ['بسیار بهتر شده', 'بهتر شده', 'فرقی نداشته', 'بدتر شده', 'نظری ندارم']
+    },
   ];
 
   const handleFeedbackChange = (questionId, value) => {
@@ -98,12 +127,14 @@ const MainPage = () => {
       setActiveMenu('خانه');
       setFeedbackSubmitted(false);
       setFeedbackAnswers({
-        cemeteryCleanliness: null,
-        staffBehavior: null,
-        graveReservation: null,
-        memorialServices: null,
-        overallExperience: null,
-        appNavigation: null,
+        q1: null,
+        q2: null,
+        q3: null,
+        q4: null,
+        q5: null,
+        q6: null,
+        q7: null,
+        q8: null,
       });
       setAdditionalOpinion('');
     }, 3000);
@@ -751,34 +782,39 @@ const MainPage = () => {
                       <div className="Mainpage-questionNumber">{idx + 1}</div>
                       <p className="Mainpage-questionText">{question.text}</p>
                       <div className="Mainpage-ratingOptions">
-                        {ratingOptions.map((option) => (
-                          <label
-                            key={option.value}
-                            className={`Mainpage-ratingLabel ${feedbackAnswers[question.id] === option.value ? 'selected' : ''
-                              }`}
-                            onClick={() => handleFeedbackChange(question.id, option.value)}
-                          >
-                            <input
-                              type="radio"
-                              name={question.id}
-                              value={option.value}
-                              checked={feedbackAnswers[question.id] === option.value}
-                              onChange={() => { }}
-                              className="Mainpage-ratingRadio"
-                            />
-                            <span>{option.label}</span>
-                          </label>
-                        ))}
+                        {question.options.map((optionLabel, optionIndex) => {
+                          const optionValue = optionIndex + 1;
+                          return (
+                            <label
+                              key={optionValue}
+                              className={`Mainpage-ratingLabel ${feedbackAnswers[question.id] === optionValue ? 'selected' : ''
+                                }`}
+                              onClick={() => handleFeedbackChange(question.id, optionValue)}
+                            >
+                              <input
+                                type="radio"
+                                name={question.id}
+                                value={optionValue}
+                                checked={feedbackAnswers[question.id] === optionValue}
+                                onChange={() => {}}
+                                className="Mainpage-ratingRadio"
+                              />
+                              <span>{optionLabel}</span>
+                            </label>
+                          );
+                        })}
                       </div>
                     </div>
                   ))}
 
                   <div className="Mainpage-feedbackQuestion">
-                    <div className="Mainpage-questionNumber">۷</div>
-                    <p className="Mainpage-questionText">نظر یا پیشنهاد خود را بنویسید</p>
+                    <div className="Mainpage-questionNumber">۹</div>
+                    <p className="Mainpage-questionText">
+                      در پایان چنانچه انتقاد یا پیشنهاد و مورد خاصی جهت پیگیری دارید مرقوم بفرمایید. (مطالب شما نزد ما به امانت می ماند)
+                    </p>
                     <textarea
                       className="Mainpage-feedbackTextarea"
-                      placeholder="لطفاً نظر، انتقاد یا پیشنهاد خود را با ما به اشتراک بگذارید..."
+                      placeholder="لطفاً انتقاد، پیشنهاد یا مورد خاص خود را با ما به اشتراک بگذارید..."
                       value={additionalOpinion}
                       onChange={(e) => setAdditionalOpinion(e.target.value)}
                       rows={5}
