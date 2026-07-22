@@ -5,7 +5,7 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 import pic7 from '../assets/images/pic7.png';
 import '../styles/GraveReservation.css';
 import html2canvas from 'html2canvas';
-import logo from '../assets/images/main_logo2.png';
+import logo from '../assets/images/Main_Logo2.png';
 import jsPDF from 'jspdf';
 
 const GraveReservation = () => {
