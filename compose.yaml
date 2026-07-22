@@ -13,5 +13,47 @@ services:
     stdin_open: true
     tty: true
 
+  api:
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile.dev
+    environment:
+      HOST: 0.0.0.0
+      PORT: 3000
+      DATABASE_URL: postgresql://${POSTGRES_USER:-diar_baghi}:${POSTGRES_PASSWORD:-diar_baghi_dev}@database:5432/${POSTGRES_DB:-diar_baghi}
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./apps/api:/app
+      - api_node_modules:/app/node_modules
+    depends_on:
+      database:
+        condition: service_healthy
+    stdin_open: true
+    tty: true
+
+  database:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-diar_baghi}
+      POSTGRES_USER: ${POSTGRES_USER:-diar_baghi}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-diar_baghi_dev}
+    ports:
+      - "${POSTGRES_PORT:-5433}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/migrations/001_initial_schema.sql:/docker-entrypoint-initdb.d/001_initial_schema.sql:ro
+      - ./database/seeds/002_mashhad_citizen_survey.sql:/docker-entrypoint-initdb.d/002_mashhad_citizen_survey.sql:ro
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U ${POSTGRES_USER:-diar_baghi} -d ${POSTGRES_DB:-diar_baghi}
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
 volumes:
   citizen_web_node_modules:
+  api_node_modules:
+  postgres_data:

@@ -1,22 +1,45 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import logo from '../assets/images/Main_Logo2.png';
-import feedbackLogo from '../assets/images/logo4.png';
 import c1 from '../assets/images/c1.png';
 import c2 from '../assets/images/c2.png';
 import c3 from '../assets/images/c3.png';
 import '../styles/MainPage.css';
+import MainSurveyPanel from '../components/MainSurveyPanel';
 import DatePicker from 'react-multi-date-picker';
 import persian from 'react-date-object/calendars/persian';
 import persian_fa from 'react-date-object/locales/persian_fa';
 
 const MainPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const mapContainerRef = useRef(null);
   const mapRef = useRef(null);
-  const [activeMenu, setActiveMenu] = useState('خانه');
+  const [selectedMenu, setSelectedMenu] = useState('خانه');
+
+  const section = new URLSearchParams(
+    location.search,
+  ).get('section');
+
+  const activeMenu =
+    section === 'survey' ? 'نظر سنجی' : selectedMenu;
+
+  const handleMenuChange = (menuId) => {
+    if (menuId === 'نظر سنجی') {
+      navigate('/MainPage?section=survey');
+      return;
+    }
+
+    setSelectedMenu(menuId);
+
+    if (location.search) {
+      navigate('/MainPage', {
+        replace: true,
+      });
+    }
+  };
   const [mapError, setMapError] = useState(false);
   const fileInputRef = useRef(null);
 
@@ -24,23 +47,7 @@ const MainPage = () => {
   const [currentSlide, setCurrentSlide] = useState(2);
   const [fadeState, setFadeState] = useState('visible');
   const slides = [c3, c2, c1];
-  const slideChangeTimeout = useRef(null);
   const fadeTimeout = useRef(null);
-
-  // --- Feedback Form State ---
-  const [feedbackAnswers, setFeedbackAnswers] = useState({
-    q1: null,
-    q2: null,
-    q3: null,
-    q4: null,
-    q5: null,
-    q6: null,
-    q7: null,
-    q8: null,
-  });
-  const [additionalOpinion, setAdditionalOpinion] = useState('');
-  const [feedbackSubmitted, setFeedbackSubmitted] = useState(false);
-  const [feedbackError, setFeedbackError] = useState(false);
 
   // --- Profile State ---
   const [userPhone, setUserPhone] = useState('۰۹۱۲۳۴۵۶۷۸۹');
@@ -53,7 +60,6 @@ const MainPage = () => {
   const [editNationalId, setEditNationalId] = useState(userNationalId);
   const [editBirthDate, setEditBirthDate] = useState(userBirthDate);
   const [profileImage, setProfileImage] = useState(null);
-  const [showDatePicker, setShowDatePicker] = useState(false);
 
   // --- Settings State ---
   const [settings, setSettings] = useState({
@@ -64,82 +70,6 @@ const MainPage = () => {
     themeColor: 'green',
   });
 
-  // New survey questions as specified (with "بود" and "بودند" removed)
-  const feedbackQuestions = [
-    { 
-      id: 'q1', 
-      text: 'نحوه برخورد، همراهی و همدلی کارکنان و پرسنل مجموعه با شما و خانواده محترم چگونه بود؟',
-      options: ['خیلی خوب', 'خوب', 'متوسط', 'ضعیف', 'بسیار ضعیف']
-    },
-    { 
-      id: 'q2', 
-      text: 'سرعت انجام مراحل اداری و امور مربوط به متوفی در واحد پذیرش چگونه بود؟',
-      options: ['خیلی خوب', 'خوب', 'برخی مراحل خوب', 'معطل شدیم', 'بسیار کند']
-    },
-    { 
-      id: 'q3', 
-      text: 'میزان پاسخگویی شفاف کارکنان و دسترسی به آنان در هنگام نیاز و درخواست شما چگونه بود؟',
-      options: ['خیلی خوب', 'خوب', 'فقط برخی کارکنان خوب', 'ضعیف', 'برخوردی نداشتم']
-    },
-    { 
-      id: 'q4', 
-      text: 'به نظر شما آراستگی آرامستان در بخش های فضای سبز، سرویس های بهداشتی و نمازخانه ها چگونه بود ؟',
-      options: ['خیلی خوب', 'خوب', 'دقت نکردم', 'معمولی', 'ضعیف']
-    },
-    { 
-      id: 'q5', 
-      text: 'کیفیت و کمیت خدمات عمرانی مانند بلوک های جدید، پارکینگهای خودرو و پارکهای بازی کودکان چگونه بود؟',
-      options: ['خیلی خوب', 'خوب', 'استفاده نکردم', 'معمولی', 'ضعیف']
-    },
-    { 
-      id: 'q6', 
-      text: 'کیفیت و کمیت ارائه خدمات در مرکز اعزام آمبولانس(کیفیت خودرو، اخلاق و رفتار راننده، تاخیر و معطلی و...) چگونه بود؟',
-      options: ['خیلی خوب', 'خوب', 'استفاده نکردم', 'معمولی', 'ضعیف']
-    },
-    { 
-      id: 'q7', 
-      text: 'در مجموع میزان رضایت شما از نتایج خدمات ارائه شده در مراحل تجهیز میت (تغسیل،تکفین و تدفین) چگونه بود؟',
-      options: ['خیلی خوب', 'خوب', 'متوسط', 'ضعیف', 'بسیار ضعیف']
-    },
-    { 
-      id: 'q8', 
-      text: 'به نظر شما در مقایسه با سال و سالیان قبل، بطور کلی محیط آرامستان و خدمات مربوط به متوفی چه تغییراتی داشته است؟',
-      options: ['بسیار بهتر شده', 'بهتر شده', 'فرقی نداشته', 'بدتر شده', 'نظری ندارم']
-    },
-  ];
-
-  const handleFeedbackChange = (questionId, value) => {
-    setFeedbackAnswers(prev => ({ ...prev, [questionId]: value }));
-    setFeedbackError(false);
-  };
-
-  const handleSubmitFeedback = () => {
-    const allAnswered = Object.values(feedbackAnswers).every(answer => answer !== null);
-    if (!allAnswered) {
-      setFeedbackError(true);
-      return;
-    }
-    setFeedbackError(false);
-    setFeedbackSubmitted(true);
-    console.log('Feedback submitted:', { feedbackAnswers, additionalOpinion });
-
-    setTimeout(() => {
-      setActiveMenu('خانه');
-      setFeedbackSubmitted(false);
-      setFeedbackAnswers({
-        q1: null,
-        q2: null,
-        q3: null,
-        q4: null,
-        q5: null,
-        q6: null,
-        q7: null,
-        q8: null,
-      });
-      setAdditionalOpinion('');
-    }, 3000);
-  };
-
   // --- Profile Handlers ---
   const handleSaveProfile = () => {
     setUserPhone(editPhone);
@@ -147,7 +77,6 @@ const MainPage = () => {
     setUserNationalId(editNationalId);
     setUserBirthDate(editBirthDate);
     setIsEditingProfile(false);
-    setShowDatePicker(false);
   };
 
   const handleCancelEdit = () => {
@@ -156,7 +85,6 @@ const MainPage = () => {
     setEditNationalId(userNationalId);
     setEditBirthDate(userBirthDate);
     setIsEditingProfile(false);
-    setShowDatePicker(false);
   };
 
   const handleLogout = () => {
@@ -195,14 +123,11 @@ const MainPage = () => {
   };
 
   // --- Carousel Handlers with Fade Effect ---
-  const goToSlide = (index) => {
+  const goToSlide = useCallback((index) => {
     if (index === currentSlide) return;
 
     setFadeState('fading');
 
-    if (slideChangeTimeout.current) {
-      clearTimeout(slideChangeTimeout.current);
-    }
     if (fadeTimeout.current) {
       clearTimeout(fadeTimeout.current);
     }
@@ -211,7 +136,7 @@ const MainPage = () => {
       setCurrentSlide(index);
       setFadeState('visible');
     }, 300);
-  };
+  }, [currentSlide]);
 
   const nextSlide = () => {
     const nextIndex = (currentSlide + 1) % slides.length;
@@ -223,14 +148,13 @@ const MainPage = () => {
     goToSlide(prevIndex);
   };
 
-  // Cleanup timeouts on unmount
+  // Cleanup timeout on unmount
   useEffect(() => {
+    const timeoutRef = fadeTimeout;
+
     return () => {
-      if (slideChangeTimeout.current) {
-        clearTimeout(slideChangeTimeout.current);
-      }
-      if (fadeTimeout.current) {
-        clearTimeout(fadeTimeout.current);
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
       }
     };
   }, []);
@@ -244,7 +168,7 @@ const MainPage = () => {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [activeMenu, currentSlide, slides.length]);
+  }, [activeMenu, currentSlide, goToSlide, slides.length]);
 
   // --- Map Initialization ---
   useEffect(() => {
@@ -412,7 +336,7 @@ const MainPage = () => {
               </div>
               <span>مزارهای ذخیره شده </span>
             </button>
-            <button className="Mainpage-profileActionBtn" onClick={() => setActiveMenu('نظر سنجی')}>
+            <button className="Mainpage-profileActionBtn" onClick={() => handleMenuChange('نظر سنجی')}>
               <div className="Mainpage-profileActionIcon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2c5a4a" strokeWidth="1.8">
                   <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -729,119 +653,11 @@ const MainPage = () => {
     // --- Feedback Tab Content ---
     if (activeMenu === 'نظر سنجی') {
       return (
-        <div className="Mainpage-feedbackContainer">
-          <div className="Mainpage-feedbackHero">
-            <div className="Mainpage-feedbackHeroPattern">
-              <svg className="Mainpage-patternSvg" viewBox="0 0 200 100" preserveAspectRatio="none">
-                <path d="M0,0 L20,10 L40,0 L60,10 L80,0 L100,10 L120,0 L140,10 L160,0 L180,10 L200,0 L200,100 L180,90 L160,100 L140,90 L120,100 L100,90 L80,100 L60,90 L40,100 L20,90 L0,100 Z" fill="rgba(255,255,255,0.08)" />
-                <path d="M0,20 L20,30 L40,20 L60,30 L80,20 L100,30 L120,20 L140,30 L160,20 L180,30 L200,20" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="2" />
-                <path d="M0,60 L20,70 L40,60 L60,70 L80,60 L100,70 L120,60 L140,70 L160,60 L180,70 L200,60" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="2" />
-              </svg>
-            </div>
-            <img src={feedbackLogo} alt="دیار باقی" className="Mainpage-feedbackLogo4" />
-          </div>
-
-          <div className="Mainpage-feedbackFormWrapper">
-            <div className="Mainpage-feedbackForm">
-              <div className="Mainpage-formOrnament">
-                <svg width="60" height="20" viewBox="0 0 120 20" className="Mainpage-ornamentTop">
-                  <path d="M0,10 Q15,0 30,10 Q45,20 60,10 Q75,0 90,10 Q105,20 120,10" fill="none" stroke="#BF9A61" strokeWidth="1.5" />
-                  <path d="M10,10 L20,5 L30,10 L40,5 L50,10 L60,5 L70,10 L80,5 L90,10 L100,5 L110,10" fill="none" stroke="#EDD79D" strokeWidth="1" />
-                </svg>
-              </div>
-
-              <div className="Mainpage-formTitle">
-                <h2>فرم نظرسنجی</h2>
-                <p>نظرات ارزشمند شما به بهبود خدمات ما کمک می‌کند</p>
-              </div>
-
-              {feedbackSubmitted ? (
-                <div className="Mainpage-feedbackSuccess">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#BF9A61" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                    <polyline points="22 4 12 14.01 9 11.01" />
-                  </svg>
-                  <p>نظرات شما با موفقیت ثبت شد</p>
-                  <p className="Mainpage-feedbackSuccessSub">در حال انتقال به صفحه اصلی...</p>
-                </div>
-              ) : (
-                <>
-                  {feedbackError && (
-                    <div className="Mainpage-feedbackErrorMsg">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <circle cx="12" cy="12" r="10" />
-                        <line x1="12" y1="8" x2="12" y2="12" />
-                        <line x1="12" y1="16" x2="12.01" y2="16" />
-                      </svg>
-                      لطفاً به تمام سوالات پاسخ دهید
-                    </div>
-                  )}
-
-                  {feedbackQuestions.map((question, idx) => (
-                    <div key={question.id} className="Mainpage-feedbackQuestion">
-                      <div className="Mainpage-questionNumber">{idx + 1}</div>
-                      <p className="Mainpage-questionText">{question.text}</p>
-                      <div className="Mainpage-ratingOptions">
-                        {question.options.map((optionLabel, optionIndex) => {
-                          const optionValue = optionIndex + 1;
-                          return (
-                            <label
-                              key={optionValue}
-                              className={`Mainpage-ratingLabel ${feedbackAnswers[question.id] === optionValue ? 'selected' : ''
-                                }`}
-                              onClick={() => handleFeedbackChange(question.id, optionValue)}
-                            >
-                              <input
-                                type="radio"
-                                name={question.id}
-                                value={optionValue}
-                                checked={feedbackAnswers[question.id] === optionValue}
-                                onChange={() => {}}
-                                className="Mainpage-ratingRadio"
-                              />
-                              <span>{optionLabel}</span>
-                            </label>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  ))}
-
-                  <div className="Mainpage-feedbackQuestion">
-                    <div className="Mainpage-questionNumber">۹</div>
-                    <p className="Mainpage-questionText">
-                      در پایان چنانچه انتقاد یا پیشنهاد و مورد خاصی جهت پیگیری دارید مرقوم بفرمایید. (مطالب شما نزد ما به امانت می ماند)
-                    </p>
-                    <textarea
-                      className="Mainpage-feedbackTextarea"
-                      placeholder="لطفاً انتقاد، پیشنهاد یا مورد خاص خود را با ما به اشتراک بگذارید..."
-                      value={additionalOpinion}
-                      onChange={(e) => setAdditionalOpinion(e.target.value)}
-                      rows={5}
-                    />
-                  </div>
-
-                  <button className="Mainpage-feedbackSubmitBtn" onClick={handleSubmitFeedback}>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M22 2L11 13" />
-                      <path d="M22 2l-7 20-4-9-9-4 20-7z" />
-                    </svg>
-                    ثبت نظرات
-                  </button>
-                </>
-              )}
-
-              <div className="Mainpage-formOrnamentBottom">
-                <svg width="80" height="16" viewBox="0 0 160 16" className="Mainpage-ornamentBottom">
-                  <path d="M0,8 C20,0 40,16 60,8 C80,0 100,16 120,8 C140,0 160,8 160,8" fill="none" stroke="#BF9A61" strokeWidth="1.2" />
-                  <circle cx="80" cy="8" r="3" fill="#EDD79D" stroke="#BF9A61" strokeWidth="1" />
-                  <circle cx="40" cy="8" r="2" fill="none" stroke="#BF9A61" strokeWidth="1" />
-                  <circle cx="120" cy="8" r="2" fill="none" stroke="#BF9A61" strokeWidth="1" />
-                </svg>
-              </div>
-            </div>
-          </div>
-        </div>
+        <MainSurveyPanel
+          onBackToHome={() => {
+            handleMenuChange('خانه');
+          }}
+        />
       );
     }
 
@@ -1017,7 +833,7 @@ const MainPage = () => {
           <div
             key={item.id}
             className={`Mainpage-menuItem ${activeMenu === item.id ? 'Mainpage-active' : ''}`}
-            onClick={() => setActiveMenu(item.id)}
+            onClick={() => handleMenuChange(item.id)}
           >
             {renderMenuIcon(item.icon, activeMenu === item.id)}
             <span className="Mainpage-menuLabel">{item.label}</span>

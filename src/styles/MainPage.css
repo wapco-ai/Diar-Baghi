@@ -1799,3 +1799,117 @@
   }
 }
 
+/* =====================================================
+   Dynamic Survey Panel
+   ===================================================== */
+
+.Mainpage-surveyProgress {
+  margin: 18px 0 24px;
+  padding: 14px 16px;
+  border: 1px solid #eee5d7;
+  border-radius: 15px;
+  color: #315f50;
+  background: #fdfbf7;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.Mainpage-surveyProgressTrack {
+  width: 100%;
+  height: 7px;
+  margin-top: 10px;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #e7e0d5;
+}
+
+.Mainpage-surveyProgressTrack > span {
+  border-radius: inherit;
+  background: linear-gradient(
+    90deg,
+    #05543e 0%,
+    #168267 70%,
+    #bf9a61 100%
+  );
+  transition: width 0.3s ease;
+}
+
+.Mainpage-surveySuccessIcon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #fff;
+  background: linear-gradient(
+    135deg,
+    #08775b,
+    #05543e
+  );
+  box-shadow: 0 10px 24px rgba(5, 84, 62, 0.22);
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.Mainpage-surveyClosingText {
+  margin: 18px 0;
+  padding: 16px;
+  border: 1px solid #eee5d7;
+  border-radius: 14px;
+  color: #4a5d55;
+  background: #faf8f3;
+  font-size: 12px;
+  line-height: 2;
+  white-space: pre-line;
+}
+
+.Mainpage-feedbackSubmitBtn:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.Mainpage-feedbackQuestion {
+  scroll-margin-top: 20px;
+}
+
+.Mainpage-questionText {
+  line-height: 1.9;
+}
+
+@media (min-width: 700px) {
+  .Mainpage-ratingOptions {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .Mainpage-ratingLabel {
+    min-height: 45px;
+    padding: 8px 7px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 699px) {
+.Mainpage-ratingOptions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+  }
+
+  .Mainpage-ratingLabel {
+    min-height: 42px;
+    padding: 7px 5px;
+    font-size: 10px;
+  }
+
+  .Mainpage-feedbackQuestion {
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+
+  .Mainpage-questionText {
+    margin-bottom: 10px;
+    font-size: 11px;
+  }
+}
+
