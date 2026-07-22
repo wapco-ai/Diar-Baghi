@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
-import logo from '../assets/images/main_logo2.png';
+import logo from '../assets/images/Main_Logo2.png';
 import feedbackLogo from '../assets/images/logo4.png';
 import c1 from '../assets/images/c1.png';
 import c2 from '../assets/images/c2.png';
