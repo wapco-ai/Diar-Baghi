@@ -3,9 +3,14 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import logo from '../assets/images/Main_Logo2.png';
-import c1 from '../assets/images/c1.png';
-import c2 from '../assets/images/c2.png';
-import c3 from '../assets/images/c3.png';
+import banner1 from '../assets/images/main-pic/banner1.png';
+import banner2 from '../assets/images/main-pic/banner2.png';
+import banner3 from '../assets/images/main-pic/banner3.png';
+import banner4 from '../assets/images/main-pic/banner4.png';
+import banner5 from '../assets/images/main-pic/banner5.png';
+import banner6 from '../assets/images/main-pic/banner6.png';
+import banner7 from '../assets/images/main-pic/banner7.png';
+import banner8 from '../assets/images/main-pic/banner8.png';
 import '../styles/MainPage.css';
 import MainSurveyPanel from '../components/MainSurveyPanel';
 import DatePicker from 'react-multi-date-picker';
@@ -18,6 +23,7 @@ const MainPage = () => {
   const mapContainerRef = useRef(null);
   const mapRef = useRef(null);
   const [selectedMenu, setSelectedMenu] = useState('خانه');
+  const [isPageScrolled, setIsPageScrolled] = useState(false);
 
   const section = new URLSearchParams(
     location.search,
@@ -26,7 +32,54 @@ const MainPage = () => {
   const activeMenu =
     section === 'survey' ? 'نظر سنجی' : selectedMenu;
 
+  useEffect(() => {
+    let animationFrameId = null;
+
+    const handlePageScroll = () => {
+      if (animationFrameId) {
+        return;
+      }
+
+      animationFrameId = window.requestAnimationFrame(() => {
+        const scrollPosition = window.scrollY;
+
+        setIsPageScrolled((currentValue) => {
+          if (!currentValue && scrollPosition > 110) {
+            return true;
+          }
+
+          if (currentValue && scrollPosition < 30) {
+            return false;
+          }
+
+          return currentValue;
+        });
+
+        animationFrameId = null;
+      });
+    };
+
+    handlePageScroll();
+
+    window.addEventListener('scroll', handlePageScroll, {
+      passive: true,
+    });
+
+    return () => {
+      window.removeEventListener('scroll', handlePageScroll);
+
+      if (animationFrameId) {
+        window.cancelAnimationFrame(animationFrameId);
+      }
+    };
+  }, []);
+
   const handleMenuChange = (menuId) => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+
     if (menuId === 'نظر سنجی') {
       navigate('/MainPage?section=survey');
       return;
@@ -46,7 +99,16 @@ const MainPage = () => {
   // --- Carousel State ---
   const [currentSlide, setCurrentSlide] = useState(2);
   const [fadeState, setFadeState] = useState('visible');
-  const slides = [c3, c2, c1];
+  const slides = [
+    banner1,
+    banner2,
+    banner3,
+    banner4,
+    banner5,
+    banner6,
+    banner7,
+    banner8,
+  ];
   const fadeTimeout = useRef(null);
 
   // --- Profile State ---
@@ -237,6 +299,10 @@ const MainPage = () => {
   const handleNavigateToGrave = () => navigate('/GraveReservation');
   const handleNavigateToFavourites = () => navigate('/FavouritePage');
   const handleNavigateToReminder = () => navigate('/ReminderPage');
+
+  const handleMartyrsComingSoon = (featureName) => {
+    window.alert(`${featureName} در حال آماده‌سازی است.`);
+  };
 
   const renderMenuIcon = (iconType, isActive) => {
     const unselectedColor = '#3E6958';
@@ -665,7 +731,7 @@ const MainPage = () => {
     if (activeMenu === 'نقشه') {
       return (
         <div className="Mainpage-mapOnlyContainer">
-          <div className="Mainpage-logoArea">
+          <div className={`Mainpage-logoArea ${isPageScrolled ? 'Mainpage-logoArea--compact' : ''}`}>
             <img src={logo} alt="دیار باقی" className="Mainpage-logo-c" />
           </div>
 
@@ -691,7 +757,7 @@ const MainPage = () => {
     if (activeMenu === 'خانه') {
       return (
         <>
-          <div className="Mainpage-logoArea">
+          <div className={`Mainpage-logoArea ${isPageScrolled ? 'Mainpage-logoArea--compact' : ''}`}>
             <img src={logo} alt="دیار باقی" className="Mainpage-logo-c" />
           </div>
 
@@ -811,6 +877,209 @@ const MainPage = () => {
               <span className="Mainpage-serviceLabel">نیکو کاری</span>
             </div>
           </div>
+
+          <section
+            className="Mainpage-martyrsSection"
+            aria-labelledby="martyrs-section-title"
+          >
+            <div className="Mainpage-martyrsHeader">
+              <div className="Mainpage-martyrsHeaderText">
+                <span className="Mainpage-martyrsEyebrow">
+                  بخش ویژه
+                </span>
+
+                <h2 id="martyrs-section-title">
+                  یادمان شهدا
+                </h2>
+
+                <p>
+                  پاسداشت نام، خاطره و روایت زندگی شهیدان
+                </p>
+              </div>
+
+              <div className="Mainpage-martyrsSymbol">
+                <svg
+                  viewBox="0 0 48 48"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M24 42V17"
+                    stroke="currentColor"
+                    strokeWidth="2.2"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M24 25C16 23 12 18 12 11C19 11 24 16 24 25Z"
+                    fill="currentColor"
+                    opacity="0.9"
+                  />
+                  <path
+                    d="M24 31C32 29 36 24 36 17C29 17 24 22 24 31Z"
+                    fill="currentColor"
+                    opacity="0.65"
+                  />
+                  <path
+                    d="M19 42H29"
+                    stroke="currentColor"
+                    strokeWidth="2.2"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              className="Mainpage-martyrsFeaturedCard"
+              onClick={() =>
+                handleMartyrsComingSoon(
+                  'زیارت مجازی گلزار شهدا',
+                )
+              }
+            >
+              <div className="Mainpage-martyrsFeaturedIcon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="8"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                  />
+                  <path
+                    d="M4 12h16M12 4c2.2 2.2 3.4 4.9 3.4 8S14.2 17.8 12 20M12 4C9.8 6.2 8.6 8.9 8.6 12S9.8 17.8 12 20"
+                    stroke="currentColor"
+                    strokeWidth="1.4"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M15.5 8.5L18 6"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                  />
+                </svg>
+
+                <span>۳۶۰°</span>
+              </div>
+
+              <div className="Mainpage-martyrsFeaturedContent">
+                <span className="Mainpage-martyrsFeaturedBadge">
+                  تجربه ویژه
+                </span>
+
+                <h3>زیارت مجازی گلزار شهدا</h3>
+
+                <p>
+                  مشاهده مجازی فضای گلزار و حرکت میان
+                  مزارهای شهدا
+                </p>
+              </div>
+
+              <span className="Mainpage-martyrsFeaturedAction">
+                ورود
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M15 18L9 12L15 6"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
+            </button>
+
+            <div className="Mainpage-martyrsActions">
+              <button
+                type="button"
+                className="Mainpage-martyrsActionCard"
+                onClick={() =>
+                  handleMartyrsComingSoon(
+                    'جست‌وجوی شهدا',
+                  )
+                }
+              >
+                <div className="Mainpage-martyrsActionIcon">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <circle
+                      cx="10.5"
+                      cy="10.5"
+                      r="6.5"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                    />
+                    <path
+                      d="M15.5 15.5L21 21"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                    />
+                    <path
+                      d="M10.5 7.5V13.5M7.5 10.5H13.5"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </div>
+
+                <div>
+                  <h3>جست‌وجوی شهدا</h3>
+                  <p>جست‌وجو بر اساس نام و محل مزار</p>
+                </div>
+              </button>
+
+              <button
+                type="button"
+                className="Mainpage-martyrsActionCard"
+                onClick={() =>
+                  handleMartyrsComingSoon(
+                    'روایت زندگی شهدا',
+                  )
+                }
+              >
+                <div className="Mainpage-martyrsActionIcon">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11V20H6.5A2.5 2.5 0 0 0 4 22V5.5Z"
+                      stroke="currentColor"
+                      strokeWidth="1.7"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M20 5.5A2.5 2.5 0 0 0 17.5 3H13V20H17.5A2.5 2.5 0 0 1 20 22V5.5Z"
+                      stroke="currentColor"
+                      strokeWidth="1.7"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </div>
+
+                <div>
+                  <h3>روایت زندگی شهدا</h3>
+                  <p>زندگی‌نامه، تصاویر و خاطرات</p>
+                </div>
+              </button>
+            </div>
+          </section>
         </>
       );
     }
